@@ -1,1 +1,17 @@
+* Mitä algoritmeja ja tietorakenteita toteutat työssäsi
+    * Toteutan A-star ja Dijkstra (IDA* tutkinnan alla) algoritmit ja keko tietorakenteen 
+* Mitä ongelmaa ratkaiset ja miksi valitsit kyseiset algoritmit/tietorakenteet
+    * Lyhin reitti koordinaatista x1,y1 koordinaattiin x2, y2
+    * Mahdollista laittaa esteitä reitin varrelle
+    * A-starin ja Dijkstran ero (kesto, operaatioiden lukumäärä) pitäisi olla huomattava
+* Mitä syötteitä ohjelma saa ja miten näitä käytetään
+    * Alku- ja loppupisteen sekä esteet merkittynä kaksiulotteiseen matriisiin (koordinaatistossa)
+    * Muodostaa solmuista (x,y) minimikeon etäisyys tiedon suhteen (A-starissa käytetään Manhattan-etäisyyttä)
+    * Algoritmit käyttävät minimikekoa hyväksi valitessaan seuraavaksi käsiteltävän solmun
+* Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysit)
+    * Dijkstra: aika: O((|E|+|V|)log|V|), tila: O(|V|)
+    * A-star: aika: O((|E|+|V|)log|V|), tila: O(|V|)
+* Lähteet
+  * Tira kurssimateriaali
+  * Muita tulossa
 
