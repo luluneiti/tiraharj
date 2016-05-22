@@ -1,17 +1,42 @@
-* Mitä algoritmeja ja tietorakenteita toteutat työssäsi
-    * Toteutan A-star ja Dijkstra (IDA* tutkinnan alla) algoritmit ja keko tietorakenteen 
-* Mitä ongelmaa ratkaiset ja miksi valitsit kyseiset algoritmit/tietorakenteet
-    * Lyhin reitti koordinaatista x1,y1 koordinaattiin x2, y2
-    * Mahdollista laittaa esteitä reitin varrelle
-    * A-starin ja Dijkstran ero (kesto, operaatioiden lukumäärä) pitäisi olla huomattava
-* Mitä syötteitä ohjelma saa ja miten näitä käytetään
-    * Alku- ja loppupisteen sekä esteet merkittynä kaksiulotteiseen matriisiin (koordinaatistossa)
-    * Muodostaa solmuista (x,y) minimikeon etäisyys tiedon suhteen (A-starissa käytetään Manhattan-etäisyyttä)
-    * Algoritmit käyttävät minimikekoa hyväksi valitessaan seuraavaksi käsiteltävän solmun
-* Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysit)
-    * Dijkstra: aika: O((|E|+|V|)log|V|), tila: O(|V|)
-    * A-star: aika: O((|E|+|V|)log|V|), tila: O(|V|)
-* Lähteet
-  * Tira kurssimateriaali
-  * Muita tulossa
+# Mitä algoritmeja ja tietorakenteita toteutat
+
+   Toteutan harjoitustyössä A-star ja Dijkstra algoritmit ja keko tietorakenteen. IDA* algoritmi on vielä tutkinnan alla.
+   
+# Minkä ongelman ratkaiset ja miksi valitsit kyseiset algoritmit / tietorakenteet
+
+   Sovellus etsii lyhimmän reitin lähtösolmusta maalisolmuun koordinaatistossa. Reitin varrelle on mahdollista laittaa 
+   esteitä, jotka algortimin tulee kiertää lyhintä reittiä etsiessään.
+   
+   Valitsin Dijkstran algoritmin, koska se on tuttu tiran kurssilta. A-star ei ole tuttu, mutta valitsin sen, koska se 
+   mainitaan usein eri julkaisuissa. Lisäksi minua kiinnostaa nähdä kuinka iso A-starin ja Dijkstran ero (kesto, operaatioiden lukumäärä)
+   on.
+    
+# Mitä syötteitä ohjelma saa ja miten näitä käytetään
+
+   Sovellus luo verkon (koko, esteet) ja kutsuu algortmia antaen syötteeksi verkon ja alku- sekä loppupisteen.
+   
+   Algoritmi alustaa solmujen etäisyys- ja polku-tiedon. Polku-tiedon avulla tiedetään mitä kautta loppupisteeseen saavuttiin.
+   Algoritmi muodostaa solmuista (x,y) minimikeon etäisyys tiedon suhteen (A-star Manhattan-etäisyys).
+   Algoritmi käyttää minimikekoa hyväksi valitessaan seuraavaksi käsiteltävän solmun. Algoritmi käsittelee solmuja ja pyytää
+   naapurisolmut Verkolta. 
+   
+   Verkko käsittelee koordinaatiston pisteitä ja se tuntee esteet ja naapurisolmut.
+   Verkko ilmoittaa algoritmille naapurisolmut solmu-listana.
+
+# Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysit)
+
+## Dijkstra
+   Aikavaativuus: O((|E|+|V|)log|V|)
+   Tilavaativuus: O(|V|) (solmut keossa)
+   
+## A-star
+   Aikavaativuus: O((|E|+|V|)log|V|)
+   Tilavaativuus: O(|V|) (solmut keossa)
+    
+# Lähteet
+  * Tira kurssimateriaali: https://www.cs.helsinki.fi/u/jkivinen/opetus/tira/k16/luennot.pdf
+  * A* Pathfinding for Beginners: http://www.policyalmanac.org/games/aStarTutorial.htm
+  * Introduction to A*: http://www.redblobgames.com/pathfinding/a-star/introduction.html
+  * A* search algorithm (wikipedia): https://en.wikipedia.org/wiki/A*_search_algorithm
+  * Dijkstra's algorithm (wikipedia) : https://en.wikipedia.org/wiki/Dijkstra's_algorithm 
 
