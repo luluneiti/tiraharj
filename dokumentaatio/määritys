@@ -13,15 +13,14 @@
     
 # Mitä syötteitä ohjelma saa ja miten näitä käytetään
 
-   Sovellus luo verkon (koko, esteet) ja kutsuu algortmia antaen syötteeksi verkon ja alku- sekä loppupisteen.
+   Sovellus luo verkon (koko, esteet, etäisyydet) ja kutsuu algortmia antaen syötteenä verkon ja alku- sekä loppupisteen. 
+   Verkko saa syötteenä 2-ulotteisen matriisin. Se käsittelee koordinaatiston pisteitä. Se untee esteet ja naapurisolmut.
    
-   Algoritmi alustaa solmujen etäisyys- ja polku-tiedon. Polku-tiedon avulla tiedetään mitä kautta loppupisteeseen saavuttiin.
+   Algoritmi alustaa alussa solmujen etäisyys- ja polku-tiedon. Etäisyydeksi asetetaan "ääretön". 
+   Polku-tiedon avulla tiedetään mitä kautta loppupisteeseen saavuttiin.
    Algoritmi muodostaa solmuista (x,y) minimikeon etäisyys tiedon suhteen (A-star Manhattan-etäisyys).
    Algoritmi käyttää minimikekoa hyväksi valitessaan seuraavaksi käsiteltävän solmun. Algoritmi käsittelee solmuja ja pyytää
-   naapurisolmut Verkolta. 
-   
-   Verkko käsittelee koordinaatiston pisteitä ja se tuntee esteet ja naapurisolmut.
-   Verkko ilmoittaa algoritmille naapurisolmut solmu-listana.
+   naapurisolmut Verkolta. Solmu tuntee sijaintinsa.
 
 # Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysit)
 

@@ -1,12 +1,32 @@
 
 * Mitä olen tehnyt tällä viikolla?
+    * Pohtinut pisteen yksilöimistä ja miten sen avulla voisi indeksoida eri kohteet (distance[], path[]). Ratkaisun 
+    toteuttaminen ja tarkistaa, että toimiiko se ja onko se yksinkertainen sekä selkeä (luokkien vastuut, koodin selkeys).
+    * Tutustunut Astariin ja pohtinut sen toteutusta. Ratkaisun toteuttaminen sekä testien teko. 
+    * Testien teko mikäli ne puuttui.
+    * Javadoc kommenttien lisääminen.
+    * Pohtinut eri luokkien vastuita.
+    * Pohtinut vähän IDA*.
+    
 * Miten ohjelma on edistynyt?
-* Mitä opin tällä viikolla / tänään?
+    * Ohjelma ja rakenne on selkeytynyt. Ratkaisut muokkautuneet (luokkia on muutettu). Olen tehnyt useita luokkia ja testit niille. 
+    
+* Mitä opin tällä viikolla?
+    * Astar ja heuristiikka
+
 * Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehellisesti, koska saat tarvittaessa apua tämän kohdan perusteella.
+    * Pisteen yksilöimistä ja miten sen avulla voisi indeksoida eri kohteet yksinkertaisesti ja säilyttäen luokkien vastuut selkeinä
+    
 * Mitä teen seuraavaksi?
+    * Minimikeon ja pinon toteutuksen aloitus
+    * Lisää testiä Dijkstralle ja Astarille -esteiden kera.
+    * Kuluneen ajan ja operaatioiden lukumäärän mittaus (lyhimmän reitin etsintä)
+    * IDA* algoritmin pohtiminen
 
-
-* <pvm> <tunnit> <aihe>
-*
-*
-*
+Tunnit:
+* 23.5.2016, 3 h: Koordinaatin pisteen yksilöiminen ja eri kohteiden indeksointi sen avulla (path[], distance[], jne.)
+* 26.5.2016, 2 h: Luokkien vastuut. Input Graph:lle 2-ulotteisena matriisina. IDA* algoritmin pohtiminen ja miten se istuisi 
+                  nykyratkaisuun.
+* 28.5.2016, 8 h: Pisteen yksilöimisen toteutus. Dijkstran muuttaminen. Astarin toteutus ja heuristiikan muuttaminen joustavasti. 
+                  Uusien testien tekeminen. Javadoc kommenttien lisääminen.
+* 29.5.2016, 4 h: Pisteen yksilöimisen toteutuksen muuttaminen ja muutokset Dijkstraan sekä Astariin. Uusien testien tekeminen.
