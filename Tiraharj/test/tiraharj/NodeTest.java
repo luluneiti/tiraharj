@@ -27,52 +27,24 @@ public class NodeTest {
     @After
     public void tearDown() {
     }
-
-    @Test
-    public void testCreateWithXAndY() {
-
-        Node node = new Node(7, 12, 1);
-        assertEquals(712, node.getValue());
-
-    }
-
-    @Test
-    public void testGetVslue() {
-
-        Node node = new Node(1, 2, 1);
-        assertEquals(12, node.getValue());
-
-    }
-
-    @Test
-    public void testGetVslue2() {
-
-        Node node = new Node(9, 10, 1);
-        assertEquals(910, node.getValue());
-
-    }
+    
     @Test
     public void testGetX() {
-
         Node node = new Node(2, 1, 1);
         assertEquals(2, node.getX());
-
     }
 
     @Test
     public void testGetY() {
-
         Node node = new Node(9, 10, 1);
         assertEquals(10, node.getY());
 
     }
 
     @Test
-    public void testGetDist() {
-
+    public void testGetDistance() {
         Node node = new Node(9, 10, 1);
         assertEquals(1, node.getDistance());
-
     }
 
     @Test
@@ -80,7 +52,6 @@ public class NodeTest {
 
         Node node1 = new Node(1, 2, 1);
         Node node2 = new Node(1, 8, 2);
-
         assertEquals(-1, node1.compareTo(node2));
 
     }
@@ -90,7 +61,6 @@ public class NodeTest {
 
         Node node1 = new Node(1, 2, 1);
         Node node2 = new Node(1, 8, 2);
-
         assertEquals(1, node2.compareTo(node1));
 
     }
