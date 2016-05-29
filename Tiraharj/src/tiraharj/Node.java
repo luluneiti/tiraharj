@@ -6,6 +6,13 @@ public class Node implements Comparable<Node> {
     private int y;
     private int distance;
 
+    /**
+     * Luodaan uusi solmu
+     *
+     * @param x koordinaatin x-arvo
+     * @param y koordinaatin y-arvo
+     * @param distance etäisyys
+     */
     public Node(int x, int y, int distance) {
 
         if (x >= 0 && y >= 0) {
@@ -13,24 +20,34 @@ public class Node implements Comparable<Node> {
             this.y = y;
             this.distance = distance;
         } else {
-            //heitä poikkeus
+            //heitä poikkeus jatkossa
+            System.out.println("ongelmia!");
         }
     }
 
+    /**
+     * Palauttaa solmu-olion x-koordinaatin arvon
+     *
+     * @return x-koordinaatin arvo
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Palauttaa solmu-olion y-koordinaatin arvon
+     *
+     * @return y-koordinaatin arvo
+     */
     public int getY() {
         return y;
     }
 
-    public int getValue() {
-
-        String s = "" + x + "" + y;
-        return Integer.parseInt(s);
-    }
-
+    /**
+     * Palauttaa solmu-olion etäisyyden
+     *
+     * @return etäisyys
+     */
     public int getDistance() {
         return distance;
     }
@@ -50,7 +67,7 @@ public class Node implements Comparable<Node> {
 
     @Override
     public String toString() {
-        return "rivi: " + this.getX() + " sarake:" + this.getY() + " ," + this.distance;
+        return "rivi: " + this.x + " sarake:" + this.y + " , etäisyys: " + this.distance; 
     }
 
 }
