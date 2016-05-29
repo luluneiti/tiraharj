@@ -21,6 +21,7 @@
     * Minimikeon ja pinon toteutuksen aloitus
     * Lisää testiä Dijkstralle ja Astarille -esteiden kera.
     * Kuluneen ajan ja operaatioiden lukumäärän mittaus (lyhimmän reitin etsintä)
+    * Luokkien jakaminen pakkauksiin (package)
     * IDA* algoritmin pohtiminen
 
 Tunnit:
