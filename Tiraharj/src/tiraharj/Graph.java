@@ -7,10 +7,18 @@ public class Graph {
     private boolean[] obstacles;
     private int[][] matrix;
 
-    public Graph(int[][] matrix, boolean[] obstacles) {
+    public Graph(int[][] matrix) {
         this.matrix = matrix;
         this.width = matrix[0].length;
         this.height = matrix.length;
+    }
+
+    /**
+     * Asettaa esteet koordinaatistoon
+     *
+     * @param obstacles
+     */
+    public void setObstacles(boolean[] obstacles) {
         this.obstacles = obstacles;
     }
 
@@ -54,7 +62,13 @@ public class Graph {
      */
     public boolean isTraversable(int x, int y) {
 
-        return obstacles[getPointId(x, y)] == false;
+        if (obstacles == null) {
+            return true;
+        }
+        if (isReachable(x, y)) {
+            return obstacles[getPointId(x, y)] == false;
+        }
+        return false;
     }
 
     /**
@@ -89,7 +103,7 @@ public class Graph {
     private Node[] createNeighbors(int x, int y) {
 
         int ind = 0;
-        Node[] neighbors = new Node[getAmountOfNeighbors(x, y)];
+        Node[] neighbors = new Node[4]; //getAmountOfNeighbors(x, y)
 
         if (isReachable(x + 1, y) && isTraversable(x + 1, y)) {
             neighbors[ind] = new Node(x + 1, y, this.matrix[x + 1][y]);
@@ -108,24 +122,6 @@ public class Graph {
         }
 
         return neighbors;
-    }
-
-    /**
-     * Palauttaa ko. koordinaatisto pisteen mahdollisten naapureiden määrän
-     *
-     * @param x koordinaatin x-arvo
-     * @param y koordinaatin y-arvo
-     * @return naapureiden määrä
-     */
-    public int getAmountOfNeighbors(int x, int y) {
-
-        if (x >= 1 && x < this.width - 1 && y >= 1 && y < this.height - 1) { //keskellä
-            return 4;
-        } else if ((x == 0 && y == 0) || (x == 0 && y == this.height - 1) || (x == this.height - 1 && y == 0) || (x == this.height - 1 && y == this.width - 1)) {  //kulmat
-            return 2;
-        } else {   //reunat, mutta ei kulmia
-            return 3;
-        }
     }
 
     /**

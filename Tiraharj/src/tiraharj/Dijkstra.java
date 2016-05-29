@@ -39,18 +39,21 @@ public class Dijkstra { //miten estää ettei graph:ssa negatiivisia?
 
                 for (Node next : graph.getNeighbors(graph, current)) {
 
-                    if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
+                    if (next != null) {
+                        if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
 
-                        if (next.getDistance() + current.getDistance() < distance[graph.getPointId(next.getX(), next.getY())]) {
-                            distance[graph.getPointId(next.getX(), next.getY())] = next.getDistance() + current.getDistance();
+                            if (next.getDistance() + current.getDistance() < distance[graph.getPointId(next.getX(), next.getY())]) {
+                                distance[graph.getPointId(next.getX(), next.getY())] = next.getDistance() + current.getDistance();
+                            }
+                            prioq.add(new Node(next.getX(), next.getY(), distance[graph.getPointId(next.getX(), next.getY())]));
+                            path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                         }
-                        prioq.add(new Node(next.getX(), next.getY(), distance[graph.getPointId(next.getX(), next.getY())]));
-                        path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                     }
-
                 }
+
             }
         }
+
         emptyRoute = (distance[graph.getPointId(goal.getX(), goal.getY())] == Integer.MAX_VALUE);
 
     }
