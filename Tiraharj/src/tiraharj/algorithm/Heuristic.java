@@ -1,4 +1,6 @@
-package tiraharj;
+package tiraharj.algorithm;
+
+import tiraharj.Node;
 
 public interface Heuristic {
 

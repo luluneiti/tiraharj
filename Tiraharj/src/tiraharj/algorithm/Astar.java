@@ -1,33 +1,44 @@
-package tiraharj;
+package tiraharj.algorithm;
 
+import tiraharj.tools.Statistic;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Stack;
+import tiraharj.Graph;
+import tiraharj.tools.Heap;
+import tiraharj.Node;
 
-public class Dijkstra { //miten estää ettei graph:ssa negatiivisia?
+public class Astar {
 
-    static PriorityQueue<Node> prioq;
-    static boolean[] visited;
-    static int[] distance;
-    static int[] path;
-    static boolean emptyRoute;
+    //static PriorityQueue<Node> prioq;
+    private static Heap prioq;
+    private static boolean[] visited;
+    private static int[] toStart;
+    private static int[] path;
+    private static boolean emptyRoute;
+    private static Statistic statistic;
+
+    public static void setStatistic(Statistic stat) {
+        statistic = stat;
+    }
 
     /**
-     * Etsii lyhimmän polun verkossa lähtösolmusta maalisolmuun
+     * Etsii lyhinnän polun verkossa lähtösolmusta maalisolmuun
      *
      * @param graph verkko, josta lyhintä polkua etsitään
      * @param start lähtösolmu, josta etsintä aloitetaan
      * @param goal maalisolmu, johon etsintä päättyy
      */
-    public static void findPath(Graph graph, Node start, Node goal) {
+    public static void findPath(Graph graph, Node start, Node goal, Heuristic heuristic) {
 
         initialize(graph, start);
-
         prioq.add(start);
 
         while (!prioq.isEmpty()) {
 
             Node current = prioq.poll();
+            statistic.addCounter();
+//            System.out.println("current: " + current);
 
             if (graph.getPointId(current.getX(), current.getY()) == graph.getPointId(goal.getX(), goal.getY())) {
                 break;
@@ -42,10 +53,10 @@ public class Dijkstra { //miten estää ettei graph:ssa negatiivisia?
                     if (next != null) {
                         if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
 
-                            if (next.getDistance() + current.getDistance() < distance[graph.getPointId(next.getX(), next.getY())]) {
-                                distance[graph.getPointId(next.getX(), next.getY())] = next.getDistance() + current.getDistance();
+                            if (toStart[graph.getPointId(next.getX(), next.getY())] > toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance()) {
+                                toStart[graph.getPointId(next.getX(), next.getY())] = toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance();
                             }
-                            prioq.add(new Node(next.getX(), next.getY(), distance[graph.getPointId(next.getX(), next.getY())]));
+                            prioq.add(new Node(next.getX(), next.getY(), toStart[graph.getPointId(next.getX(), next.getY())] + heuristic.getToEnd(next, goal)));
                             path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                         }
                     }
@@ -53,24 +64,25 @@ public class Dijkstra { //miten estää ettei graph:ssa negatiivisia?
 
             }
         }
-
-        emptyRoute = (distance[graph.getPointId(goal.getX(), goal.getY())] == Integer.MAX_VALUE);
-
+        emptyRoute = (toStart[graph.getPointId(goal.getX(), goal.getY())] == Integer.MAX_VALUE);
     }
 
-    private static void initialize(Graph graph, Node start) {
+    public static void initialize(Graph graph, Node start) {
+        //prioq = new PriorityQueue();
+        prioq = new Heap(graph.getNodeAmount() + 1);
         visited = new boolean[graph.getNodeAmount() + 1];
-        prioq = new PriorityQueue();
-        distance = new int[graph.getNodeAmount() + 1];
+        toStart = new int[graph.getNodeAmount() + 1];
         path = new int[graph.getNodeAmount() + 1];
-        Arrays.fill(distance, Integer.MAX_VALUE);
-        distance[graph.getPointId(start.getX(), start.getY())] = 0;
         emptyRoute = false;
+        //init
+        Arrays.fill(toStart, Integer.MAX_VALUE);
+        toStart[graph.getPointId(start.getX(), start.getY())] = 0;
     }
 
     /**
      * Tulostaa etsityn lyhimmän polun lähtösolmusta maalisolmuun
      *
+     * @param graph verkko
      * @param start lähtösolmu
      * @param goal maalisolmu
      */
@@ -108,5 +120,4 @@ public class Dijkstra { //miten estää ettei graph:ssa negatiivisia?
 
         return stack;
     }
-
 }

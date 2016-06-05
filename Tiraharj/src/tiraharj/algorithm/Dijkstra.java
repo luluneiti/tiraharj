@@ -1,44 +1,44 @@
-package tiraharj;
+package tiraharj.algorithm;
 
+import tiraharj.tools.Statistic;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Stack;
-import static tiraharj.Dijkstra.distance;
-import static tiraharj.Dijkstra.emptyRoute;
-import static tiraharj.Dijkstra.path;
-import static tiraharj.Dijkstra.visited;
+import tiraharj.Graph;
+import tiraharj.tools.Heap;
+import tiraharj.Node;
 
-public class Astar {
+public class Dijkstra { //miten estää ettei graph:ssa negatiivisia?
 
-    static PriorityQueue<Node> prioq;
-    static boolean[] visited;
-    static int[] toStart;
-    static int[] path;
-    static boolean emptyRoute;
+    //static PriorityQueue<Node> prioq;
+    private static Heap prioq;
+    private static boolean[] visited;
+    private static int[] distance;
+    private static int[] path;
+    private static boolean emptyRoute;
+    private static Statistic statistic;
+
+    public static void setStatistic(Statistic stat) {
+        statistic = stat;
+    }
 
     /**
-     * Etsii lyhinnän polun verkossa lähtösolmusta maalisolmuun
+     * Etsii lyhimmän polun verkossa lähtösolmusta maalisolmuun
      *
      * @param graph verkko, josta lyhintä polkua etsitään
      * @param start lähtösolmu, josta etsintä aloitetaan
      * @param goal maalisolmu, johon etsintä päättyy
      */
-    public static void findPath(Graph graph, Node start, Node goal, Heuristic heuristic) {
+    public static void findPath(Graph graph, Node start, Node goal) {
 
-        visited = new boolean[graph.getNodeAmount() + 1];
-        prioq = new PriorityQueue();
-        toStart = new int[graph.getNodeAmount() + 1];
-        path = new int[graph.getNodeAmount() + 1];
-        emptyRoute = false;
-        //init
-        Arrays.fill(toStart, Integer.MAX_VALUE);
-        toStart[graph.getPointId(start.getX(), start.getY())] = 0;
-
+        initialize(graph, start);
         prioq.add(start);
 
         while (!prioq.isEmpty()) {
 
             Node current = prioq.poll();
+            statistic.addCounter();
+            //            System.out.println("current: " + current);
 
             if (graph.getPointId(current.getX(), current.getY()) == graph.getPointId(goal.getX(), goal.getY())) {
                 break;
@@ -51,27 +51,40 @@ public class Astar {
                 for (Node next : graph.getNeighbors(graph, current)) {
 
                     if (next != null) {
+//                        System.out.println(next);
+
                         if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
 
-                            if (toStart[graph.getPointId(next.getX(), next.getY())] > toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance()) {
-                                toStart[graph.getPointId(next.getX(), next.getY())] = toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance();
+                            if (next.getDistance() + current.getDistance() < distance[graph.getPointId(next.getX(), next.getY())]) {
+                                distance[graph.getPointId(next.getX(), next.getY())] = next.getDistance() + current.getDistance();
                             }
-                            prioq.add(new Node(next.getX(), next.getY(), toStart[graph.getPointId(next.getX(), next.getY())] + heuristic.getToEnd(next, goal)));
+                            prioq.add(new Node(next.getX(), next.getY(), distance[graph.getPointId(next.getX(), next.getY())]));
                             path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                         }
                     }
                 }
 
             }
+//            prioq.print();
         }
-        emptyRoute = (toStart[graph.getPointId(goal.getX(), goal.getY())] == Integer.MAX_VALUE);
 
+        emptyRoute = (distance[graph.getPointId(goal.getX(), goal.getY())] == Integer.MAX_VALUE);
+    }
+
+    private static void initialize(Graph graph, Node start) {
+//        prioq = new PriorityQueue();
+        prioq = new Heap(graph.getNodeAmount() + 1);
+        visited = new boolean[graph.getNodeAmount() + 1];
+        distance = new int[graph.getNodeAmount() + 1];
+        path = new int[graph.getNodeAmount() + 1];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[graph.getPointId(start.getX(), start.getY())] = 0;
+        emptyRoute = false;
     }
 
     /**
      * Tulostaa etsityn lyhimmän polun lähtösolmusta maalisolmuun
      *
-     * @param graph verkko
      * @param start lähtösolmu
      * @param goal maalisolmu
      */
@@ -109,4 +122,5 @@ public class Astar {
 
         return stack;
     }
+
 }

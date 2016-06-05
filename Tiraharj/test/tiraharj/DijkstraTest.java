@@ -1,5 +1,6 @@
 package tiraharj;
 
+import tiraharj.algorithm.Dijkstra;
 import java.util.Stack;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -9,8 +10,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static tiraharj.Main.runAstar;
 import static tiraharj.Main.runDijkstra;
+import tiraharj.tools.Statistic;
 
 public class DijkstraTest {
+
+    private static Statistic statistic = new Statistic();
 
     public DijkstraTest() {
 
@@ -39,11 +43,13 @@ public class DijkstraTest {
         Graph graph = new Graph(matrix);
         boolean[] obstacles = new boolean[graph.getNodeAmount()];
         graph.setObstacles(obstacles);
-
+        Dijkstra.setStatistic(statistic);
         Dijkstra.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0));
         Stack<Integer> stack = Dijkstra.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
 
         assertEquals("1,3", graph.getXYByPointId(stack.pop()));
+        assertEquals("1,4", graph.getXYByPointId(stack.pop()));//matka piteni minkeolla 2 askelta!!!!
+        assertEquals("2,4", graph.getXYByPointId(stack.pop()));//matka piteni minkeolla 2 askelta!!!!
         assertEquals("2,3", graph.getXYByPointId(stack.pop()));
 
     }
@@ -60,6 +66,7 @@ public class DijkstraTest {
         obstacles[graph.getPointId(4, 1)] = true;
         obstacles[graph.getPointId(4, 2)] = true;
 
+        Dijkstra.setStatistic(statistic);
         Dijkstra.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0));
         Stack<Integer> stack = Dijkstra.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
 

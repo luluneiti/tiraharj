@@ -1,5 +1,9 @@
 package tiraharj;
 
+import tiraharj.algorithm.Manhattan;
+import tiraharj.algorithm.Heuristic;
+import tiraharj.algorithm.Dijkstra;
+import tiraharj.algorithm.Astar;
 import java.util.Stack;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -7,8 +11,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tiraharj.tools.Statistic;
 
 public class AstarTest {
+
+    private static Statistic statistic = new Statistic();
 
     public AstarTest() {
 
@@ -38,6 +45,7 @@ public class AstarTest {
         boolean[] obstacles = new boolean[graph.getNodeAmount()];
         graph.setObstacles(obstacles);
         Heuristic heuristic = new Manhattan();
+        Astar.setStatistic(statistic);
         Astar.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
         Stack<Integer> stack = Astar.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
 
@@ -58,16 +66,18 @@ public class AstarTest {
         obstacles[graph.getPointId(4, 4)] = true;
         obstacles[graph.getPointId(4, 3)] = true;
         obstacles[graph.getPointId(4, 1)] = true;
-
-        Dijkstra.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0));
-        Stack<Integer> stack = Dijkstra.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
+        Heuristic heuristic = new Manhattan();
+        Astar.setStatistic(statistic);
+        Astar.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
+        Astar.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0));
+        Stack<Integer> stack = Astar.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
 
         assertEquals("0,2", graph.getXYByPointId(stack.pop()));
         assertEquals("0,3", graph.getXYByPointId(stack.pop()));
         assertEquals("0,4", graph.getXYByPointId(stack.pop()));
         assertEquals("1,4", graph.getXYByPointId(stack.pop()));
         assertEquals("2,4", graph.getXYByPointId(stack.pop()));
-        assertEquals("3,4", graph.getXYByPointId(stack.pop()));
+        assertEquals("2,3", graph.getXYByPointId(stack.pop()));
 
     }
 

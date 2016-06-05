@@ -1,5 +1,7 @@
 package tiraharj;
 
+import tiraharj.algorithm.Manhattan;
+import tiraharj.algorithm.Heuristic;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
