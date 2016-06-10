@@ -1,17 +1,40 @@
 * Mitä olen tehnyt tällä viikolla?
-    * 
+    * Toteutin ja testasin pinon
+    * Totetin ja testasin 3-keon. Testit vielä kesken. Tein myös keolle rajapinta-luokan, jotta helppo vaihtaa kekoa.
+    * Tein algoritmeille rajapintaluokan.
+    * Tein location luokan ja siirsin naapuripäättelyn heuristiikka luokkaan, joka tietää mihin suuntaan missäkin
+    heuristiikassa liikutaan. Graph luokka saa nyt koordinaatit heuristiikka luokalta taulukossa Location -muodossa. 
+    Location luokkaa tullaan käyttämään vain, kun välitetään x,y koordinaatisto joukkoja.
+    * Jatkoin algoritmin testausta isoilla aineistoilla
+    * Toteutin IDA* algoritmin ja aloitin testauksen. Toimii ok osalla, pieniä matriiseja.
+    * Tein uuden UI-luokan käsin ja se on vielä aivan kesken. Käyttöliittymän tekeminen ei oikein muistu mieleen ja vie aikaa.
       
 * Miten ohjelma on edistynyt?
-    * 
+    * Olen tehnyt monia luokkia ja yrittänyt helpottaa asioiden "lennossa" muuttamista (esim. heap rajapinta luokka), 
+    jotta testaus olisi helpompaa.
     
 * Mitä opin tällä viikolla / tänään?
-    * 
+    * 3-keko, IDA*, UI ja taulukon tekeminen, jotta saisi mäpättyä matriisiin
     
 * Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehellisesti, koska saat tarvittaessa apua tämän kohdan perusteella.
-    * 
+    * Käyttöliittymän teko, IDA* ongelmat, 3-keon teko, suorituskyky testeissä isot erot ajasa ja solmu määrässä.
     
 * Mitä teen seuraavaksi?
-    *
+    * Luokkien testiä lisää ja puuttuvien testien lisäys
+    * Tarkistaa, että javadoc kommentit lisätty kaikkialle
+    * Dokumentointia
+    * Suorituskykytestin jatkaminen
+    * 3-keon toteutuksen oikeellisuuden pohtiminen
+    * IDA* toteutuksen oikeellisuden pohtiminen
 
 Tunnit:
-* x.x.xxxx, x h: 
+* 6.6.2016, 5 h: Pinon toteutus ja testitapauksen teko. Testin aloitus. IDA* pohtiminen. Katselmoitavan projektin tutkiminen ja 
+               kommenttien pohtiminen.
+* 7.6.2016, 4 h: Pinon testaus. IDA* aloitus.
+* 8.6.2016, 6 h: 3-keon toteutus ja testitapauksien teko ja testaus. Keon ja algoritmien rajapinta-luokka ja sen muutokset. IDA*
+               jatkaminen. Location luokka ja naapurien päättelyn siirtäminen heuristiikka luokkaan sekä Graph luokan muutos.
+               UI:n toteutusta.
+* 9.6.2016, 8 h: Keon vaihtamisen "lennosta" mahdollistaminen ja sen muutokset. IDA* testitapaukset ja testaus sekä sen ongelmien
+               selvitys. Naapurien päättelyn testitapaukset ja testaus. UI:n toteutusta.
+* 10.6.2016, 6 h: Suorituskyky testausta 2- ja 3-keolla (Dijkstra, A*). Dokumentointi ja luokkakaavion tekeminen.
+* 10.6.2016, 1 h: Katselmointi kommenttien tekeminen
