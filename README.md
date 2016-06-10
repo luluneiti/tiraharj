@@ -11,7 +11,9 @@
 * 
 
 #### Viikko 4:
-* 
+* https://github.com/luluneiti/tiraharj/blob/master/viikkopalautukset/viikkoraportti%204
+* https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/Toteutus.pdf
+* https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/testaus
 
 #### Viikko 5:
 * 
