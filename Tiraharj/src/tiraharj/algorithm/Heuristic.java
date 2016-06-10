@@ -1,5 +1,6 @@
 package tiraharj.algorithm;
 
+import tiraharj.Location;
 import tiraharj.Node;
 
 public interface Heuristic {
@@ -13,4 +14,11 @@ public interface Heuristic {
      */
     public abstract int getToEnd(Node a, Node b);
 
+    /**
+     * Palauttaa koordinaatit, joihin ko. heuristiikassa voidaan liikkua
+     * @param x
+     * @param y
+     * @return koordinaatit
+     */
+    public abstract Location[] getNeighborsCoordinates(int x, int y);
 }

@@ -1,4 +1,4 @@
-package tiraharj;
+package tiraharj.algorithm;
 
 import tiraharj.algorithm.Manhattan;
 import tiraharj.algorithm.Heuristic;
@@ -10,7 +10,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tiraharj.Graph;
+import tiraharj.Node;
 import static org.junit.Assert.*;
+import tiraharj.tools.BinaryHeap;
+import tiraharj.tools.StackO;
 import tiraharj.tools.Statistic;
 
 public class AstarTest {
@@ -45,9 +49,18 @@ public class AstarTest {
         boolean[] obstacles = new boolean[graph.getNodeAmount()];
         graph.setObstacles(obstacles);
         Heuristic heuristic = new Manhattan();
-        Astar.setStatistic(statistic);
-        Astar.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
-        Stack<Integer> stack = Astar.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
+        /**
+         * *********************************************
+         */
+        ShortestPath astar = new Astar(new BinaryHeap(graph.getNodeAmount() + 1));
+//        ShortestPath astar = new Astar(new TernaryHeap(graph.getNodeAmount()+1));
+        //prioriteettijono pitää editoida ohjelmassa
+        /**
+         * *********************************************
+         */
+        astar.setStatistic(statistic);
+        astar.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
+        StackO stack = astar.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
 
         while (!stack.isEmpty()) {
             assertEquals("2,2", graph.getXYByPointId(stack.pop()));
@@ -67,10 +80,19 @@ public class AstarTest {
         obstacles[graph.getPointId(4, 3)] = true;
         obstacles[graph.getPointId(4, 1)] = true;
         Heuristic heuristic = new Manhattan();
-        Astar.setStatistic(statistic);
-        Astar.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
-        Astar.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0));
-        Stack<Integer> stack = Astar.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
+        /**
+         * *********************************************
+         */
+        ShortestPath astar = new Astar(new BinaryHeap(graph.getNodeAmount() + 1));
+//        ShortestPath astar = new Astar(new TernaryHeap(graph.getNodeAmount()+1));
+        //prioriteettijono pitää editoida ohjelmassa
+        /**
+         * *********************************************
+         */
+        astar.setStatistic(statistic);
+        astar.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
+        astar.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), astar);
+        StackO stack = astar.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
 
         assertEquals("0,2", graph.getXYByPointId(stack.pop()));
         assertEquals("0,3", graph.getXYByPointId(stack.pop()));

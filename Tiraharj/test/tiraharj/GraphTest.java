@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tiraharj.algorithm.Heuristic;
+import tiraharj.algorithm.Manhattan;
 
 public class GraphTest {
 
@@ -82,7 +84,7 @@ public class GraphTest {
     public void testGetNeighbors() {
         int[][] matrix = {{1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}};
         Graph graph = new Graph(matrix);
-        Node[] list = graph.getNeighbors(graph, new Node(0, 0, 0));
+        Node[] list = graph.getNeighbors(graph, new Node(0, 0, 0), new Manhattan());
         assertEquals(4, list.length);
         assertEquals(true, isInList(list, new Node(1, 0, 1)));
         assertEquals(true, isInList(list, new Node(0, 1, 1)));
@@ -105,7 +107,19 @@ public class GraphTest {
     public void testGetNeighbors2() {
         int[][] matrix = {{1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}};
         Graph graph = new Graph(matrix);
-        Node[] list = graph.getNeighbors(graph, new Node(2, 2, 0));
+        Node[] list = graph.getNeighbors(graph, new Node(2, 2, 0), new Manhattan());
+        assertEquals(4, list.length);
+        assertEquals(true, isInList(list, new Node(1, 2, 1)));
+        assertEquals(true, isInList(list, new Node(3, 2, 1)));
+        assertEquals(true, isInList(list, new Node(2, 1, 1)));
+        assertEquals(true, isInList(list, new Node(2, 3, 1)));
+    }
+    @Test
+    public void testGetNeighborsWihtHeuristic() {
+        int[][] matrix = {{1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}};
+        Graph graph = new Graph(matrix);
+        Heuristic heur=new Manhattan();
+        Node[] list = graph.getNeighbors(graph, new Node(2, 2, 0), heur);
         assertEquals(4, list.length);
         assertEquals(true, isInList(list, new Node(1, 2, 1)));
         assertEquals(true, isInList(list, new Node(3, 2, 1)));

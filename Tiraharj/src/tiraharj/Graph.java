@@ -1,5 +1,7 @@
 package tiraharj;
 
+import tiraharj.algorithm.Heuristic;
+
 public class Graph {
 
     private int width;
@@ -81,44 +83,41 @@ public class Graph {
     }
 
     /**
-     * Palauttaa parametrina annetun solmun naapurisolmut
+     * Palauttaa parametrina annetun solmun naapurisolmut 
+     * Huom: myös Dijkstra käyttää heuristiikkaa sen päättelyssä, että minne voi liikkue.
      *
      * @param graph verkko, jossa solmu sijaitsee
      * @param node solmu, jonka naapurit etsitään (solmu tuntee oman
      * xy-sijaintinsa)
+     * @param heuristic käytettävä heuristiikka
      * @return taulukko, jossa naapurisolmut
      */
-    public Node[] getNeighbors(Graph graph, Node node) {
+    public Node[] getNeighbors(Graph graph, Node node, Heuristic heuristic) {
 
         //eri koordinaateilla eri määrä naapureita
-        return createNeighbors(node.getX(), node.getY());
+        return createNeighbors(node.getX(), node.getY(), heuristic);
     }
 
     /**
-     * Luo naapurisolmut. Päättelee naapuruuden koordinaattien avulla.
+     * Luo naapurisolmut. Saa koordinaatit heuristiikka oliolta, joka tietää
+     * minne liikutaan. Tarkistaa, että onko solmut saavutettavissa
+     * koordinaatistossa ja ei ole estettä.
      *
      * @param x solmun x-koordinaatti, jolle naapurisolmut luodaan
      * @param y solmun y-koordinaatti, jolle naapurisolmut luodaan
      */
-    private Node[] createNeighbors(int x, int y) {
+    //kuormitettu metodi algoritmeille, jotka käyttävät heuristiikkaa
+    private Node[] createNeighbors(int x, int y, Heuristic heuristic) {
 
+        Location[] coord = heuristic.getNeighborsCoordinates(x, y); //missä muodossa
         int ind = 0;
-        Node[] neighbors = new Node[4]; //getAmountOfNeighbors(x, y)
+        Node[] neighbors = new Node[coord.length];
 
-        if (isReachable(x + 1, y) && isTraversable(x + 1, y)) {
-            neighbors[ind] = new Node(x + 1, y, this.matrix[x + 1][y]);
-            ind++;
-        }
-        if (isReachable(x - 1, y) && isTraversable(x - 1, y)) {
-            neighbors[ind] = new Node(x - 1, y, this.matrix[x - 1][y]);
-            ind++;
-        }
-        if (isReachable(x, y + 1) && isTraversable(x, y + 1)) {
-            neighbors[ind] = new Node(x, y + 1, this.matrix[x][y + 1]);
-            ind++;
-        }
-        if (isReachable(x, y - 1) && isTraversable(x, y - 1)) {
-            neighbors[ind] = new Node(x, y - 1, this.matrix[x][y - 1]);
+        for (Location loc : coord) {
+            if (isReachable(loc.getX(), loc.getY()) && isTraversable(loc.getX(), loc.getY())) {
+                neighbors[ind] = new Node(loc.getX(), loc.getY(), this.matrix[loc.getX()][loc.getY()]);
+                ind++;
+            }
         }
 
         return neighbors;

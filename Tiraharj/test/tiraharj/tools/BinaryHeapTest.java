@@ -1,18 +1,19 @@
-package tiraharj;
+package tiraharj.tools;
 
-import tiraharj.tools.Heap;
+import tiraharj.tools.BinaryHeap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tiraharj.Node;
 import static org.junit.Assert.*;
 
-public class HeapTest {
+public class BinaryHeapTest {
 
-    Heap heap = new Heap(20);
+    BinaryHeap heap = new BinaryHeap(20);
 
-    public HeapTest() {
+    public BinaryHeapTest() {
 
     }
 

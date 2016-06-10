@@ -1,5 +1,6 @@
-package tiraharj;
+package tiraharj.algorithm;
 
+import java.util.Arrays;
 import tiraharj.algorithm.Manhattan;
 import tiraharj.algorithm.Heuristic;
 import org.junit.After;
@@ -7,7 +8,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import tiraharj.Node;
 import static org.junit.Assert.*;
+import tiraharj.Location;
 
 public class ManhattanTest {
 
@@ -47,5 +50,20 @@ public class ManhattanTest {
     public void testGetToEnd3() {
         Heuristic heuristic = new Manhattan();
         assertEquals(11, heuristic.getToEnd(new Node(1, 1, 1), new Node(4, 9, 1)));
+    }
+
+    @Test
+    public void testGetNeighborsCoordinates() {
+        Heuristic heuristic = new Manhattan();
+        Location[] table = heuristic.getNeighborsCoordinates(1, 1);
+
+        assertEquals(2, table[0].getX()); //x+1
+        assertEquals(1, table[0].getY());
+        assertEquals(0, table[1].getX()); //x-1
+        assertEquals(1, table[1].getY());
+        assertEquals(1, table[2].getX()); //y+1
+        assertEquals(2, table[2].getY());
+        assertEquals(1, table[3].getX());//y-1
+        assertEquals(0, table[3].getY());
     }
 }

@@ -13,6 +13,21 @@ public class Statistic {
     }
 
     /**
+     * Getterit testiä varten
+     */
+    public long getOperCounter() {
+        return operCounter;
+    }
+
+    public long getTimeInBegin() {
+        return timeInBegin;
+    }
+
+    public long getTimeInEnd() {
+        return timeInEnd;
+    }
+
+    /**
      * Lisää laskuria
      */
     public void addCounter() {
