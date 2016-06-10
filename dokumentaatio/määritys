@@ -31,6 +31,8 @@
 ## A-star
    Aikavaativuus: O((|E|+|V|)log|V|)
    Tilavaativuus: O(|V|) (solmut keossa)
+   
+## IDA-star (puuttuu)
     
 # Lähteet
   * Tira kurssimateriaali: https://www.cs.helsinki.fi/u/jkivinen/opetus/tira/k16/luennot.pdf
@@ -38,4 +40,5 @@
   * Introduction to A*: http://www.redblobgames.com/pathfinding/a-star/introduction.html
   * A* search algorithm (wikipedia): https://en.wikipedia.org/wiki/A*_search_algorithm
   * Dijkstra's algorithm (wikipedia) : https://en.wikipedia.org/wiki/Dijkstra's_algorithm 
+  * https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search
 
