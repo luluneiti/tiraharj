@@ -1,0 +1,18 @@
+# Mitä on testattu, miten tämä tehtiin
+  - Kaikilla luokilla (paitsi pääohjelma, käyttöliittymä, rajapinta-luokat) on oma JUnit-testiluokka, jossa on 
+  kaikkien metodien testit (osa testeistä vielä kesken, IDA* algortimi kesken)
+  - Lisäksi on performanceTest-luokka, jossa testataan algoritmeja isommalla syötteellä
+  
+# Minkälaisilla syötteillä testaus tehtiin (vertailupainotteisissa töissä tärkeää)
+  - Matriisin koko vaihdellut 5*5:stä 2000*2000:n. Matriisin etäisyydet välillä pelkkiä ykkösiä ja välillä luvut väliltä 1-9.
+  - Algoritmeja testattu sekä 2- että 3-keolla.
+  
+# Miten testit voidaan toistaa
+  - JUnit testit voidaan ajaa uudelleen ja kaikkien testien pitäisi olla sellaiset, että ne on toistettavissa. Ainut poikkeus toistaiseksi
+  on algoritmien testiluokat, joissa pitäisi olla omat testit 2-keolle ja 3-keolle, koska lyhin polku saattaa erota hieman. 
+  - Käyttöliittymää tullaan testaamaan vain käsin eri testitapauksilla
+    - Testitapaukset:
+  
+# Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
+
+
