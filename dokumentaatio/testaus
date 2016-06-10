@@ -1,6 +1,6 @@
 # Mitä on testattu, miten tämä tehtiin
   - Kaikilla luokilla (paitsi pääohjelma, käyttöliittymä, rajapinta-luokat) on oma JUnit-testiluokka, jossa on 
-  kaikkien metodien testit (osa vielä kesken)
+  kaikkien metodien testit (osa testeistä vielä kesken, IDA* algortimi kesken)
   - Lisäksi on performanceTest-luokka, jossa testataan algoritmeja isommalla syötteellä
   
 # Minkälaisilla syötteillä testaus tehtiin (vertailupainotteisissa töissä tärkeää)
