@@ -1,23 +1,25 @@
 # Mitä on testattu, miten tämä tehtiin
-  - Kaikilla luokilla (paitsi pääohjelma, käyttöliittymä, rajapinta-luokat) on oma JUnit-testiluokka, jossa on 
-  kaikkien metodien testit
-  - Lisäksi on performanceTest-luokka, jossa testataan algoritmeja isommalla syötteellä
+  - Kaikilla luokilla on oma JUnit-testiluokka, jossa on ko. luokan metodien testit
+    - Poikkeuksena: pääohjelma, sovelluslogiikka (käyttöliittymän olioiden luonti ja algoritmin käynnistys), käyttöliittymä, 
+      rajapinta-luokan abstraktit metodit 
+  - Lisäksi on performanceTest-luokka, jossa testataan algoritmeja isommalla syötteellä ja ajoista on tehty testaustilasto tiedosto
   
 # Minkälaisilla syötteillä testaus tehtiin
-  - Matriisin koko vaihdellut 5*5:stä 2000*2000:n. 
-  - Matriisin etäisyydet välillä pelkkiä ykkösiä ja välillä luvut väliltä 1-9.
-  - Reitin pituudet vaihtelivat välillä x-x
-  - Algoritmeja testattu sekä 2- että 3-keolla.
+  - Matriisin koko vaihdellut 5*5:stä 3000*3000:n 
+  - Solmujen etäisyydet luvut väliltä 1-9 (pelkkiä ykkösiä, etäisyydet 1-9)
+  - Eri pituiset polut 4-95 (linnuntietä)
+  - Esteiden määrä vaihteli (2-10)
+  - Algoritmeja testattu sekä 2- että 3-keolla
+  - Huom: IDA* algoritmi toimii vain pienillä matriiseilla. Katso toteutus dokumentti.
   
 # Miten testit voidaan toistaa
-  - JUnit testit voidaan ajaa uudelleen. Dijkstran ja Astarin testiluokissa on omat metodit 2- ja 3-keolle, jotta mahdolliset erot eivät
-  haittaa testien ajamista.
-  - Käyttöliittymää tullaan testaamaan vain käsin eri testitapauksilla. Sisältöä testataan tarkemmin JUnit testitapauksissa.
+  - JUnit testit voidaan ajaa uudelleen. Dijkstran ja Astarin testiluokissa on omat metodit 2- ja 3-keolle, jotta mahdolliset erot 
+  kekojen välilä eivät haittaa testien ajamista.
+  - Käyttöliittymää (vielä kesken) tullaan testaamaan vain käsin eri testitapauksilla. 
     - Testitapaukset: 
-      - validi aloitusolmun tai maalisolmun x ja/tai y
-      - epävalidi aloitusolmun tai maalisolmun x ja/tai y
+      - eri algoritmien ajaminen eri keko-toteutuksilla
+      - tilastojen näyttäminen ja lyhimmän polun näyttäminen (polun näyttäminen ei toimi vielä ja sen toteutus kesken)
       - etäisyyksien arpominen
-      - eri algoritmit 2- ja 3-keolla
   
 # Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
 
