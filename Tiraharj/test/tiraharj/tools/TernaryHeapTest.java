@@ -10,8 +10,6 @@ import tiraharj.Node;
 
 public class TernaryHeapTest {
 
-    private TernaryHeap heap = new TernaryHeap(20);
-
     public TernaryHeapTest() {
     }
 
@@ -32,109 +30,132 @@ public class TernaryHeapTest {
     }
 
     @Test
-    public void testIsEmpty() {
-        assertEquals(true, heap.isEmpty());
-    }
-
-    @Test
-    public void testIsFull() {
-        assertEquals(false, heap.isFull());
-    }
-
-    @Test
-    public void testGetData() {
-
-    }
-
-    @Test
-    public void testSetData() {
-
-    }
-
-    @Test
-    public void testGetHeapSize() {
-
+    public void testSwap() {
+        TernaryHeap heap = new TernaryHeap(20);
+        heap.setData(new Node(1, 1, 7), 1);
+        heap.setData(new Node(1, 2, 8), 2);
+        Node a = heap.getData(1);
+        Node b = heap.getData(2);
+        heap.swap(1, 2);
+        assertEquals(b, heap.getData(1));
+        assertEquals(a, heap.getData(2));
     }
 
     @Test
     public void testHeapify() {
+        TernaryHeap heap = new TernaryHeap(20);
+        heap.add(new Node(1, 1, 10));
+        heap.add(new Node(1, 2, 8));
+        Node node = heap.getData(1);
+        assertEquals(8, node.getDistance());
 
     }
 
     @Test
     public void testAdd() {
-        Node x = new Node(1, 3, 7);
+        TernaryHeap heap = new TernaryHeap(20);
+        Node x = new Node(1, 3, 1);
         heap.add(x);
-        assertEquals(x, heap.getData(1));
-        Node y = new Node(1, 2, 6);
-        heap.add(y);
-        assertEquals(null, heap.getData(0));
-        assertEquals(y, heap.getData(1));
-        assertEquals(x, heap.getData(2));
-        assertEquals(null, heap.getData(3));
-        Node z = new Node(5, 5, 4);
-        heap.add(z);
-        assertEquals(null, heap.getData(0));
-        assertEquals(z, heap.getData(1));
-        assertEquals(x, heap.getData(2));
-        assertEquals(y, heap.getData(3));
-        Node r = new Node(5, 5, 3);
-        heap.add(r);
-        assertEquals(null, heap.getData(0));
-        assertEquals(r, heap.getData(1));
-        assertEquals(x, heap.getData(2));
-        assertEquals(y, heap.getData(3));
-        Node s = new Node(5, 5, 2);
-        heap.add(s);
-        assertEquals(null, heap.getData(0));
-        assertEquals(s, heap.getData(1));
-        assertEquals(r, heap.getData(2));
-        Node t = new Node(5, 5, 1);
-        heap.add(t);
-        assertEquals(null, heap.getData(0));
-        assertEquals(t, heap.getData(1));
-        assertEquals(s, heap.getData(2));
-        heap.print(); //onko solmut oikeassa paikassa???? // kolmonen on pohjalla!!
+        assertEquals(x, heap.poll());
     }
 
     @Test
     public void testPoll() {
-        Node node = heap.getData(2);
-        heap.poll();
-        assertEquals(node, heap.getData(1));
-    }
-
-    @Test
-    public void testSwap() {
-        Node node=heap.getData(6);
-        heap.swap(3, 6);
-        assertEquals(node, heap.getData(3));
+        TernaryHeap heap = new TernaryHeap(20);
+        Node x = new Node(1, 3, 1);
+        heap.add(x);
+        assertEquals(x, heap.poll());
     }
 
     @Test
     public void testParent() {
-        assertEquals(1, heap.parent(4));
-        assertEquals(2, heap.parent(6));
+        TernaryHeap heap = new TernaryHeap(20);
+        assertEquals(1, heap.parent(3));
     }
 
     @Test
     public void testLeft() {
+        TernaryHeap heap = new TernaryHeap(20);
         assertEquals(2, heap.left(1));
     }
 
     @Test
     public void testMiddle() {
-        assertEquals(6, heap.middle(2));
+        TernaryHeap heap = new TernaryHeap(20);
+        assertEquals(3, heap.middle(1));
     }
 
     @Test
     public void testRight() {
+        TernaryHeap heap = new TernaryHeap(20);
         assertEquals(4, heap.right(1));
     }
 
     @Test
-    public void testPrint() {
+    public void testGetData() {
+        TernaryHeap heap = new TernaryHeap(20);
+        Node x = new Node(1, 3, 1);
+        heap.add(x);
+        assertEquals(x, heap.getData(1));
+    }
 
+    @Test
+    public void testSetData() {
+        TernaryHeap heap = new TernaryHeap(20);
+        Node x = new Node(1, 3, 1);
+        heap.setData(x, 1);
+        assertEquals(x, heap.getData(1));
+    }
+
+    @Test
+    public void testGetHeapSize() {
+        TernaryHeap heap = new TernaryHeap(20);
+        assertEquals(0, heap.getHeapSize());
+        Node x = new Node(1, 3, 1);
+        heap.add(x);
+        assertEquals(1, heap.getHeapSize());
+    }
+
+    @Test
+    public void testIsEmpty() {
+        TernaryHeap heap = new TernaryHeap(20);
+        assertEquals(true, heap.isEmpty());
+        Node x = new Node(1, 3, 1);
+        heap.add(x);
+        assertEquals(false, heap.isEmpty());
+    }
+
+    @Test
+    public void testIsFull() {
+        TernaryHeap heap = new TernaryHeap(2);
+        assertEquals(false, heap.isFull());
+        Node x = new Node(1, 3, 1);
+        heap.add(x);
+        assertEquals(true, heap.isFull());
+    }
+
+    @Test
+    public void testPrint() {
+        BinaryHeap heap = new BinaryHeap(20);
+        int etaisyys = 20;
+        for (int i = 0; i < 15; i++) {
+            Node x1 = new Node(1, 3, etaisyys);
+            heap.add(x1);
+            etaisyys--;
+        }
+        heap.print();
+
+    }
+
+    @Test
+    public void testClean() {
+        TernaryHeap heap = new TernaryHeap(3);
+        Node x = new Node(1, 3, 1);
+        heap.add(x);
+        heap.add(x);
+        assertEquals(false, heap.isEmpty());
+        heap.clean();
+        assertEquals(true, heap.isEmpty());
     }
 
 }

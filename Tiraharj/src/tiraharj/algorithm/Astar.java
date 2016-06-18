@@ -13,8 +13,8 @@ import tiraharj.tools.TernaryHeap;
 
 public class Astar implements ShortestPath {
 
-    //private PriorityQueue<Node> prioq;
-    private Heap prioq;
+    private PriorityQueue<Node> prioq;
+    //private Heap prioq;
     private boolean[] visited;
     private int[] toStart;
     private int[] path;
@@ -22,15 +22,8 @@ public class Astar implements ShortestPath {
     private Statistic statistic;
 
     public Astar(Heap heap) {
-        this.prioq = heap;
-    }
-
-    public Astar(Graph graph) {
-
-        //prioq = new PriorityQueue();
-        prioq = new BinaryHeap(graph.getNodeAmount() + 1);
-        //prioq = new TernaryHeap(graph.getNodeAmount() + 1);
-
+        //this.prioq = heap;
+        prioq = new PriorityQueue(); //käytetään vain vertailussa
     }
 
     /**
@@ -51,7 +44,6 @@ public class Astar implements ShortestPath {
 
             Node current = prioq.poll();
             statistic.addCounter();
-//            System.out.println("current: " + current);
 
             if (graph.getPointId(current.getX(), current.getY()) == graph.getPointId(goal.getX(), goal.getY())) {
                 break;
@@ -63,16 +55,15 @@ public class Astar implements ShortestPath {
 
                 for (Node next : graph.getNeighbors(graph, current, heuristic)) {
 
-                    if (next != null) {
-                        if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
+                    if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
 
-                            if (toStart[graph.getPointId(next.getX(), next.getY())] > toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance()) {
-                                toStart[graph.getPointId(next.getX(), next.getY())] = toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance();
-                            }
-                            prioq.add(new Node(next.getX(), next.getY(), toStart[graph.getPointId(next.getX(), next.getY())] + heuristic.getToEnd(next, goal)));
-                            path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
+                        if (toStart[graph.getPointId(next.getX(), next.getY())] > toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance()) {
+                            toStart[graph.getPointId(next.getX(), next.getY())] = toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance();
                         }
+                        prioq.add(new Node(next.getX(), next.getY(), toStart[graph.getPointId(next.getX(), next.getY())] + heuristic.getToEnd(next, goal)));
+                        path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                     }
+
                 }
 
             }
@@ -86,9 +77,11 @@ public class Astar implements ShortestPath {
         path = new int[graph.getNodeAmount() + 1];
         emptyRoute = false;
         //init
-        Arrays.fill(toStart, Integer.MAX_VALUE);
+        //Arrays.fill(toStart, Integer.MAX_VALUE);
+        toStart = initTable(graph.getNodeAmount() + 1);
         toStart[graph.getPointId(start.getX(), start.getY())] = 0;
     }
+
 
     /**
      * Tulostaa etsityn lyhimmän polun lähtösolmusta maalisolmuun
@@ -96,27 +89,9 @@ public class Astar implements ShortestPath {
      * @param graph verkko
      * @param start lähtösolmu
      * @param goal maalisolmu
-     * @return
      */
-    public void printPath(Graph graph, Node start, Node goal) { //tuplakoodia, vie yhteen paikkaan
-
-        /*
-         if (!emptyRoute) {
-         Stack<Integer> stack = new Stack();
-         int in;
-         in = path[graph.getPointId(goal.getX(), goal.getY())];
-         while (in != graph.getPointId(start.getX(), start.getY())) {
-         stack.push(in);
-         in = path[in];
-         }
-         System.out.println("Shortest route: ");
-
-         while (!stack.isEmpty()) {
-         System.out.println(graph.getXYByPointId(stack.pop()));
-         }
-         } else {
-         System.out.println("Verkko ei ollut yhtenäinen ja maalisolmua ei saavutettu");
-         }*/
+    public void printPath(Graph graph, Node start, Node goal) {
+        throw new UnsupportedOperationException("Use default method in interface class");
     }
 
     @Override
@@ -133,11 +108,6 @@ public class Astar implements ShortestPath {
         }
 
         return stack;
-    }
-
-    @Override
-    public void findPath(Graph graph, Node start, Node goal) {
-        throw new UnsupportedOperationException("Not supported.");
     }
 
     @Override

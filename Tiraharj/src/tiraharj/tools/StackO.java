@@ -37,7 +37,7 @@ public class StackO {
     /**
      * Poistaa ja palauttaa pinon päällä olevan verkon solmun
      *
-     * @param newNode pinoon lisättävä solmu
+     * @param newOne
      */
     public void push(int newOne) {
         if (!isFull()) {

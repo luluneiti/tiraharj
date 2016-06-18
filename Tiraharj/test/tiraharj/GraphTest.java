@@ -85,7 +85,7 @@ public class GraphTest {
         int[][] matrix = {{1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}};
         Graph graph = new Graph(matrix);
         Node[] list = graph.getNeighbors(graph, new Node(0, 0, 0), new Manhattan());
-        assertEquals(4, list.length);
+        assertEquals(2, list.length);
         assertEquals(true, isInList(list, new Node(1, 0, 1)));
         assertEquals(true, isInList(list, new Node(0, 1, 1)));
     }

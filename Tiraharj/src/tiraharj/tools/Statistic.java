@@ -14,6 +14,7 @@ public class Statistic {
 
     /**
      * Getterit testiä varten
+     * @return palautta laskurin arvon
      */
     public long getOperCounter() {
         return operCounter;
@@ -48,6 +49,7 @@ public class Statistic {
         this.timeInEnd = System.currentTimeMillis();
     }
 
+    @Override
     public String toString() {
         return "Operaatioon kului aikaa: " + (this.timeInEnd - this.timeInBegin) + " ms ja käsiteltyjen solmujen lkm: " + this.operCounter;
     }

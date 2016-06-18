@@ -83,8 +83,8 @@ public class Graph {
     }
 
     /**
-     * Palauttaa parametrina annetun solmun naapurisolmut 
-     * Huom: myös Dijkstra käyttää heuristiikkaa sen päättelyssä, että minne voi liikkue.
+     * Palauttaa parametrina annetun solmun naapurisolmut Huom: myös Dijkstra
+     * käyttää heuristiikkaa sen päättelyssä, että minne voi liikkue.
      *
      * @param graph verkko, jossa solmu sijaitsee
      * @param node solmu, jonka naapurit etsitään (solmu tuntee oman
@@ -106,12 +106,11 @@ public class Graph {
      * @param x solmun x-koordinaatti, jolle naapurisolmut luodaan
      * @param y solmun y-koordinaatti, jolle naapurisolmut luodaan
      */
-    //kuormitettu metodi algoritmeille, jotka käyttävät heuristiikkaa
     private Node[] createNeighbors(int x, int y, Heuristic heuristic) {
 
         Location[] coord = heuristic.getNeighborsCoordinates(x, y); //missä muodossa
         int ind = 0;
-        Node[] neighbors = new Node[coord.length];
+        Node[] neighbors = new Node[getSize(coord)];
 
         for (Location loc : coord) {
             if (isReachable(loc.getX(), loc.getY()) && isTraversable(loc.getX(), loc.getY())) {
@@ -121,6 +120,18 @@ public class Graph {
         }
 
         return neighbors;
+    }
+
+    //estää nullit taulukossa
+    private int getSize(Location[] coord) {
+
+        int count = 0;
+        for (Location loc : coord) {
+            if (isReachable(loc.getX(), loc.getY()) && isTraversable(loc.getX(), loc.getY())) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**

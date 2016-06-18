@@ -46,7 +46,7 @@ public class IDAStarTest {
         ida.setStatistic(statistic);
         ida.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
         StackO stack = ida.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
-
+        ida.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), ida);
         assertEquals("2,2", graph.getXYByPointId(stack.pop()));
         assertEquals("3,2", graph.getXYByPointId(stack.pop()));
 

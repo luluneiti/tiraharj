@@ -15,12 +15,7 @@ public class BinaryHeap implements Heap {
         this.sizeReservation = sizeReservation;
     }
 
-    /**
-     * Palauttaa keon taulukon indeksissä olevan alkion (vain testiä varten)
-     *
-     * @param i indeksi
-     * @return keon taulukon indeksissä olevan alkion
-     */
+    @Override
     public Node getData(int i) {
         return data[i];
     }
@@ -35,29 +30,17 @@ public class BinaryHeap implements Heap {
         this.data[i] = node;
     }
 
-    /**
-     * Palauttaa keon koon (vain testiä varten)
-     *
-     * @return keon koko
-     */
+    @Override
     public int getHeapSize() {
         return this.heapSize;
     }
 
-    /**
-     * Palauttaa true/false riippuen siitä onko keko tyhjä
-     *
-     * @return onko keko tyhjä
-     */
+    @Override
     public boolean isEmpty() {
         return this.heapSize == 0;
     }
 
-    /**
-     * Poistaa minimikeosta pienimmän alkion
-     *
-     * @return poistettavan pienimmän alkion
-     */
+    @Override
     public Node poll() {
 
         if (!isEmpty()) {
@@ -79,16 +62,17 @@ public class BinaryHeap implements Heap {
      */
     public void heapify(int i) {
 
-        int smallest = 0;
+        int indexOfSmallest = 0;
 
         if (right(i) <= heapSize) {
             if (data[left(i)].compareTo(data[right(i)]) == 1) {
-                smallest = right(i);
+                indexOfSmallest = right(i);
             } else {
-                smallest = left(i);
+                indexOfSmallest = left(i);
             }
-            if (data[i].compareTo(data[smallest]) == 1) {
-                swap(i, smallest);
+            if (data[i].compareTo(data[indexOfSmallest]) == 1) {
+                swap(i, indexOfSmallest);
+                heapify(i);
             }
         } else if (left(i) == heapSize && data[i].compareTo(data[left(i)]) == 1) {
             swap(i, left(i));
@@ -110,15 +94,12 @@ public class BinaryHeap implements Heap {
         data[j] = swap;
     }
 
+    @Override
     public boolean isFull() {
-        return heapSize == data.length;
+        return heapSize == data.length - 1;
     }
 
-    /**
-     * Lisää parametrina annetun alkion kekoon
-     *
-     * @param node alkio lisätään kekoon
-     */
+    @Override
     public void add(Node node) {
 
         if (!isFull()) {
@@ -132,40 +113,33 @@ public class BinaryHeap implements Heap {
         }
     }
 
-    /**
-     * Palauttaa i indeksin kohdassa olevan alkion vanhemman indeksin
-     *
-     * @param i kenen vanhempaa etsitään
-     * @return vanhemman indeksi
-     */
+    @Override
     public int parent(int i) {
         return i / 2;
     }
 
-    /**
-     * Palauttaa i indeksin kohdassa olevan alkion vasemman lapsen indeksin
-     *
-     * @param i kenen vasenta lasta etsitään
-     * @return vasemman lapsen indeksi
-     */
+    @Override
     public int left(int i) {
         return 2 * i;
     }
 
-    /**
-     * Palauttaa i indeksin kohdassa olevan alkion oikean lapsen indeksin
-     *
-     * @param i kenen oikeaa lasta etsitään
-     * @return oikean lapsen indeksi
-     */
+    @Override
+    public int middle(int i) {
+        throw new UnsupportedOperationException("Not supported.");
+    }
+
+    @Override
     public int right(int i) {
         return 2 * i + 1;
     }
 
+    @Override
     public void print() {
-        for (int i = 1; i < data.length; i++) {
+        for (int i = 0; i < data.length; i++) {
             if (data[i] != null) {
                 System.out.println(i + " , " + data[i].toString());
+            } else {
+                System.out.println("null");
             }
         }
     }
@@ -175,4 +149,5 @@ public class BinaryHeap implements Heap {
         this.data = new Node[this.sizeReservation];
         this.heapSize = 0;
     }
+
 }

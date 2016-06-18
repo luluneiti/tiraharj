@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Stack;
 import tiraharj.Graph;
 import tiraharj.Node;
+import tiraharj.tools.NodeSort;
 import tiraharj.tools.StackO;
 import tiraharj.tools.Statistic;
 
@@ -13,6 +14,7 @@ public class IDAStar implements ShortestPath {
     private Statistic statistic;
     private Heuristic heuristic;
     private int[] path;
+    private boolean[] visited;
 
     @Override
     public void setStatistic(Statistic stat) {
@@ -25,71 +27,75 @@ public class IDAStar implements ShortestPath {
      * @param graph verkko, josta lyhintä polkua etsitään
      * @param start lähtösolmu, josta etsintä aloitetaan
      * @param goal maalisolmu, johon etsintä päättyy
-     * @param heur
+     * @param heuristic
      */
     @Override
-    public void findPath(Graph graph, Node start, Node goal, Heuristic heur) {
+    public void findPath(Graph graph, Node start, Node goal, Heuristic heuristic) {
 
         path = new int[graph.getNodeAmount() + 1];
-        this.heuristic = heur;
-        Integer bound = heuristic.getToEnd(start, goal);
-        System.out.println("bound: " + bound);
+        this.heuristic = heuristic;
         Integer t = 0;
+
+        //asetetaan maxsyvyys
+        Integer bound = heuristic.getToEnd(start, goal);
 
         while (t != -1) {
             statistic.addCounter();
+//            System.out.println(start);
+            visited = new boolean[graph.getNodeAmount() + 1]; //nopeuttaa algoritmia
             t = search(start, 0, bound, goal, graph);
-            System.out.println("t1: " + t);
+
             if (t == -1) {
                 emptyRoute = false;
-                break;
             }
             if (t == Integer.MAX_VALUE) {
                 emptyRoute = true;
             }
             bound = t;
         }
+
     }
 
     private Integer search(Node current, Integer g, Integer bound, Node goal, Graph graph) {
 
+        visited[graph.getPointId(current.getX(), current.getY())] = true;
+
         Integer f = g + this.heuristic.getToEnd(current, goal);
-        System.out.println("f2: " + f);
+
         if (f > bound) {
             return f;
         }
-        if (graph.getPointId(current.getX(), current.getY()) == graph.getPointId(goal.getX(), goal.getY())) {
+        if (this.heuristic.getToEnd(current, goal) == 0) {
             return -1;
         }
+
         Integer min = Integer.MAX_VALUE;
-        Node[] nexts = graph.getNeighbors(graph, current, heuristic);
+        Node[] nextsorg = graph.getNeighbors(graph, current, heuristic);
+        //Arrays.sort(nexts); //nopeuttaa algoritmia
+        Node[] nexts = NodeSort.nodeSort(nextsorg);
 
         for (Node next : nexts) {
-            if (next != null) {
+
+            if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
                 statistic.addCounter();
-                System.out.println("next: " + next);
                 Integer t = search(next, g + next.getDistance(), bound, goal, graph);
-                System.out.println("t2: " + t);
                 path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
+
                 if (t == -1) {
                     return -1;
                 }
                 if (t < min) {
                     min = t;
                 }
-
             }
         }
+
         return min;
     }
 
     @Override
-    public void findPath(Graph graph, Node start, Node goal) {
-        throw new UnsupportedOperationException("Not supported.");
-    }
-
-    @Override
-    public StackO getPathInStack(Graph graph, Node start, Node goal) {
+    public StackO getPathInStack(Graph graph, Node start, Node goal
+    ) {
         StackO stack = new StackO(graph.getNodeAmount() + 1);
         if (!emptyRoute) {
             int in;
@@ -106,11 +112,5 @@ public class IDAStar implements ShortestPath {
     @Override
     public boolean emptyPath() {
         return this.emptyRoute == true;
-    }
-
-    public void print(Graph graph, Node start, Node goal) {
-        for (int i = 0; i < path.length; i++) {
-            System.out.println(i + ":" + path[i]);
-        }
     }
 }

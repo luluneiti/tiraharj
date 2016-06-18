@@ -2,7 +2,6 @@ package tiraharj.algorithm;
 
 import tiraharj.Location;
 import tiraharj.Node;
-import tiraharj.algorithm.Heuristic;
 
 public class Manhattan implements Heuristic {
 
