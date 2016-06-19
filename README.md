@@ -16,7 +16,10 @@
 * https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/testaus
 
 #### Viikko 5:
-* 
+* https://github.com/luluneiti/tiraharj/blob/master/viikkopalautukset/viikkoraportti%205
+* https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/Toteutus.pdf
+* https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/testaus
+* https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/Testaustilasto.pdf
 
 #### Viikko 6:
 * 
