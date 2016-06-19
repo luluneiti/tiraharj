@@ -13,8 +13,8 @@ import tiraharj.tools.TernaryHeap;
 
 public class Dijkstra implements ShortestPath {
 
-    private PriorityQueue<Node> prioq;
-    //private Heap prioq;
+    //private PriorityQueue<Node> prioq;
+    private Heap prioq;
     private boolean[] visited;
     private int[] distance;
     private int[] path;
@@ -22,8 +22,8 @@ public class Dijkstra implements ShortestPath {
     private Statistic statistic;
 
     public Dijkstra(Heap heap) {
-        //this.prioq = heap;
-        prioq = new PriorityQueue(); //käytetään vain vertailussa
+        this.prioq = heap;
+        //prioq = new PriorityQueue(); //käytetään vain vertailussa
     }
 
     /**
@@ -55,13 +55,15 @@ public class Dijkstra implements ShortestPath {
 
                 for (Node next : graph.getNeighbors(graph, current, heuristic)) {
 
-                    if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
+                    if (next != null) { //jos esteitä solmun ympärillä, ei naapureita
+                        if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
 
-                        if (next.getDistance() + current.getDistance() < distance[graph.getPointId(next.getX(), next.getY())]) {
-                            distance[graph.getPointId(next.getX(), next.getY())] = next.getDistance() + current.getDistance();
+                            if (next.getDistance() + current.getDistance() < distance[graph.getPointId(next.getX(), next.getY())]) {
+                                distance[graph.getPointId(next.getX(), next.getY())] = next.getDistance() + current.getDistance();
+                            }
+                            prioq.add(new Node(next.getX(), next.getY(), distance[graph.getPointId(next.getX(), next.getY())]));
+                            path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                         }
-                        prioq.add(new Node(next.getX(), next.getY(), distance[graph.getPointId(next.getX(), next.getY())]));
-                        path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                     }
                 }
 
@@ -76,11 +78,10 @@ public class Dijkstra implements ShortestPath {
         distance = new int[graph.getNodeAmount() + 1];
         path = new int[graph.getNodeAmount() + 1];
         //Arrays.fill(distance, Integer.MAX_VALUE);
-        distance=initTable(graph.getNodeAmount() + 1);
+        distance = initTable(graph.getNodeAmount() + 1);
         distance[graph.getPointId(start.getX(), start.getY())] = 0;
         emptyRoute = false;
     }
-    
 
     /**
      * Tulostaa etsityn lyhimmän polun lähtösolmusta maalisolmuun

@@ -42,7 +42,7 @@ public class NodeSortTest {
         nodes2[2] = new Node(1, 2, 3);
         nodes2[3] = new Node(1, 1, 8);
 
-        Node[] nodes3 = NodeSort.nodeSort(nodes);
+        Node[] nodes3 = NodeSort.sort(nodes);
 
         assertEquals(nodes2[0].getDistance(), nodes3[0].getDistance());
         assertEquals(nodes2[1].getDistance(), nodes3[1].getDistance());

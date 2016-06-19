@@ -13,8 +13,8 @@ import tiraharj.tools.TernaryHeap;
 
 public class Astar implements ShortestPath {
 
-    private PriorityQueue<Node> prioq;
-    //private Heap prioq;
+    //private PriorityQueue<Node> prioq;
+    private Heap prioq;
     private boolean[] visited;
     private int[] toStart;
     private int[] path;
@@ -22,8 +22,8 @@ public class Astar implements ShortestPath {
     private Statistic statistic;
 
     public Astar(Heap heap) {
-        //this.prioq = heap;
-        prioq = new PriorityQueue(); //käytetään vain vertailussa
+        this.prioq = heap;
+        //prioq = new PriorityQueue(); //käytetään vain vertailussa
     }
 
     /**
@@ -55,13 +55,15 @@ public class Astar implements ShortestPath {
 
                 for (Node next : graph.getNeighbors(graph, current, heuristic)) {
 
-                    if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
+                    if (next != null) { //jos esteitä solmun ympärillä, ei naapureita
+                        if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
 
-                        if (toStart[graph.getPointId(next.getX(), next.getY())] > toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance()) {
-                            toStart[graph.getPointId(next.getX(), next.getY())] = toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance();
+                            if (toStart[graph.getPointId(next.getX(), next.getY())] > toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance()) {
+                                toStart[graph.getPointId(next.getX(), next.getY())] = toStart[graph.getPointId(next.getX(), next.getY())] + next.getDistance();
+                            }
+                            prioq.add(new Node(next.getX(), next.getY(), toStart[graph.getPointId(next.getX(), next.getY())] + heuristic.getToEnd(next, goal)));
+                            path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                         }
-                        prioq.add(new Node(next.getX(), next.getY(), toStart[graph.getPointId(next.getX(), next.getY())] + heuristic.getToEnd(next, goal)));
-                        path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
                     }
 
                 }
@@ -81,7 +83,6 @@ public class Astar implements ShortestPath {
         toStart = initTable(graph.getNodeAmount() + 1);
         toStart[graph.getPointId(start.getX(), start.getY())] = 0;
     }
-
 
     /**
      * Tulostaa etsityn lyhimmän polun lähtösolmusta maalisolmuun

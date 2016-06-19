@@ -41,7 +41,6 @@ public class IDAStar implements ShortestPath {
 
         while (t != -1) {
             statistic.addCounter();
-//            System.out.println(start);
             visited = new boolean[graph.getNodeAmount() + 1]; //nopeuttaa algoritmia
             t = search(start, 0, bound, goal, graph);
 
@@ -51,7 +50,7 @@ public class IDAStar implements ShortestPath {
             if (t == Integer.MAX_VALUE) {
                 emptyRoute = true;
             }
-            bound = t;
+            bound = t; //muutetaan maxsyvyyttä
         }
 
     }
@@ -71,21 +70,22 @@ public class IDAStar implements ShortestPath {
 
         Integer min = Integer.MAX_VALUE;
         Node[] nextsorg = graph.getNeighbors(graph, current, heuristic);
-        //Arrays.sort(nexts); //nopeuttaa algoritmia
-        Node[] nexts = NodeSort.nodeSort(nextsorg);
+        //Arrays.sort(nexts); 
+        Node[] nexts = NodeSort.sort(nextsorg); //nopeuttaa algoritmia
 
         for (Node next : nexts) {
+            if (next != null) { ///jos esteitä solmun ympärillä, ei naapureita
+                if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
+                    statistic.addCounter();
+                    Integer t = search(next, g + next.getDistance(), bound, goal, graph);
+                    path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
 
-            if (visited[graph.getPointId(next.getX(), next.getY())] == false) {
-                statistic.addCounter();
-                Integer t = search(next, g + next.getDistance(), bound, goal, graph);
-                path[graph.getPointId(next.getX(), next.getY())] = graph.getPointId(current.getX(), current.getY());
-
-                if (t == -1) {
-                    return -1;
-                }
-                if (t < min) {
-                    min = t;
+                    if (t == -1) {
+                        return -1;
+                    }
+                    if (t < min) {
+                        min = t;
+                    }
                 }
             }
         }

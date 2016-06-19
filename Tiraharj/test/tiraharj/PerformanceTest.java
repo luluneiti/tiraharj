@@ -15,8 +15,8 @@ import tiraharj.tools.TernaryHeap;
 
 public class PerformanceTest {
 
-    final int MATRIXSIZE = 5; //memory loppuu jos laittaa yli 8000
-    final int MAXDISTANCE = 1;
+    final int MATRIXSIZE = 3000; //memory loppuu jos laittaa yli 8000
+    final int MAXDISTANCE = 9;
     final int LOOPUNTIL = 10;
     static int[][] matrix;
     static Graph graph;
@@ -24,7 +24,7 @@ public class PerformanceTest {
     final int lahtox = 1;
     final int lahtoy = 2;
     final int maalix = 4;
-    final int maaliy = 4;
+    final int maaliy = 5;
     ShortestPath dijkstra;
     ShortestPath astar;
     ShortestPath ida;
@@ -63,11 +63,11 @@ public class PerformanceTest {
 
         ida = new IDAStar();
 
-//        obstacles[graph.getPointId(2, 4)] = true; //IDA ei löydä reittiä esteillä!
-//        obstacles[graph.getPointId(3, 2)] = true;
-//        obstacles[graph.getPointId(3, 4)] = true;
-//        obstacles[graph.getPointId(2, 3)] = true;
-//        obstacles[graph.getPointId(4, 3)] = true;
+        obstacles[graph.getPointId(1, 3)] = true; //IDA ei löydä reittiä esteillä!
+        obstacles[graph.getPointId(2, 2)] = true;
+        obstacles[graph.getPointId(3, 4)] = true;
+        obstacles[graph.getPointId(2, 3)] = true;
+        obstacles[graph.getPointId(4, 3)] = true;
 
     }
 

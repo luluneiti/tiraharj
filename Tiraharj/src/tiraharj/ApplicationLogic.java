@@ -28,6 +28,19 @@ public class ApplicationLogic {
 
     }
 
+    /**
+     * Luo tarvittavat oliot ja käynnistää lyhimmän polun etsinnän halutulla algoritmilla
+     * @param matrix verkko
+     * @param obstacles esteet 
+     * @param algorithmName ajettava algoritmi
+     * @param heuristicName käytettävä heuristiikka
+     * @param heapName käytettävä keko-ratkaisu
+     * @param startX lähtösolmu x
+     * @param startY lähtösolmu y
+     * @param goalX maalisolmu x
+     * @param goalY maalisolmu y
+     * @return ajon tulos
+     */
     public String runAlgorithm(int[][] matrix, boolean[] obstacles, String algorithmName, String heuristicName, String heapName, int startX, int startY, int goalX, int goalY) {
 
         //tarkista matriisi ennen ettei neg arvoja
@@ -41,7 +54,7 @@ public class ApplicationLogic {
         return stat.toString();
     }
 
-    public void createAlgorithm(String algorithmName, Heap heap, Statistic stat, Graph graph, int startX, int startY, int goalX, int goalY) {
+    private void createAlgorithm(String algorithmName, Heap heap, Statistic stat, Graph graph, int startX, int startY, int goalX, int goalY) {
         if (algorithmName.equals("Dijkstra")) {
             algorithm = new Dijkstra(heap);
             runDijkstra(heap, stat, graph, startX, startY, goalX, goalY);
@@ -56,7 +69,7 @@ public class ApplicationLogic {
         }
     }
 
-    public Heap createHeap(String heapName, Graph graph) {
+    private Heap createHeap(String heapName, Graph graph) {
         Heap heap;
         if (heapName == "bheap") {
             heap = new BinaryHeap(graph.getNodeAmount() + 1);
@@ -91,10 +104,23 @@ public class ApplicationLogic {
         stat.stopClock();
     }
 
+    /**
+     * Asettaa käytöliittymä -olion muuttujaan, jotta voidaan kutsua sen metodeita
+     * @param ui käyttöliittymä-olio
+     */
     public void setUI(UserInterface ui) {
         this.ui = ui;
     }
 
+    /**
+     * Palauttaa lyhimmän polun käyttölittymälke merkkijonona 
+     * Jatkossa tulee merkitsemään lyhimmän polun käyttöliittymän matriisiin
+     * @param startX lähtösolmun x
+     * @param startY lähtösolmun y
+     * @param goalX maalisolmun x
+     * @param goalY maalisolmun y
+     * @return lyhin polku
+     */
     public String showPath(int startX, int startY, int goalX, int goalY) {
 
         String ret = "";
@@ -120,6 +146,15 @@ public class ApplicationLogic {
 
         }
         return ret;
+    }
+
+    /**
+     * Palautaa true jos etäisys on positiivinen
+     * @param distance etäisyys
+     * @return true, jos etäisyys >=0
+     */
+    public boolean distanceOk(int distance) {
+        return distance>=0;
     }
 
 }

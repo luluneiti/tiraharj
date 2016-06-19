@@ -32,6 +32,10 @@ public class UserInterface extends JFrame implements ActionListener {
     private ApplicationLogic logic;
     private static UserInterface g;
 
+    /**
+     * Käyttöliittymän pääohjelma
+     * @param args
+     */
     public static void main(String[] args) {
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -68,14 +72,19 @@ public class UserInterface extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Lyhimmän polun merkitsemiseksi ruutu värjätään 
+     * @param x x-koordinaatti
+     * @param y y-koordinaatti
+     */
     public void setRed(int x, int y) {
-        
+
         Component comp = table.findComponentAt(x, y);
         comp.setForeground(Color.red);
 
     }
-
-    public void startAlgorithm() throws NumberFormatException, HeadlessException {
+    
+    private void startAlgorithm() throws NumberFormatException, HeadlessException {
 
         try {
             boolean[] obstacles = new boolean[table.getWidth() * table.getHeight()];
@@ -119,7 +128,7 @@ public class UserInterface extends JFrame implements ActionListener {
 
     }
 
-    public void setDistances() {
+    private void setDistances() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 int k = RandomNumber.getNumber(9);
@@ -129,18 +138,23 @@ public class UserInterface extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    public int[][] getTableData(JTable table, DefaultTableModel def) {
+    private int[][] getTableData(JTable table, DefaultTableModel def) {
         int nRow = def.getRowCount(), nCol = def.getColumnCount();
         int[][] matrix = new int[nRow][nCol];
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nCol; j++) {
-                matrix[i][j] = (int) def.getValueAt(i, j);
+                if (logic.distanceOk((int) def.getValueAt(i, j))) {
+                    matrix[i][j] = (int) def.getValueAt(i, j);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Etäisyys ei ole validi kohteessa: " + i + ":" + j);
+                    matrix[i][j] = 0;
+                }
             }
         }
         return matrix;
     }
 
-    public void createGUI() {
+    private void createGUI() {
 
         logic = new ApplicationLogic();
         this.setLayout(new FlowLayout());
@@ -160,7 +174,7 @@ public class UserInterface extends JFrame implements ActionListener {
 
     }
 
-    public void createComponents() {
+    private void createComponents() {
         start = new JLabel("Lähtö:", 10);
         startX = new JTextField("", 3);
         startY = new JTextField("", 3);
@@ -194,7 +208,7 @@ public class UserInterface extends JFrame implements ActionListener {
         table = new JTable(def);
     }
 
-    public void setComponents() {
+    private void setComponents() {
         this.add(table);
         this.add(start);
         this.add(startX);

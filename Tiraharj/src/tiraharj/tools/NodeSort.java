@@ -13,7 +13,7 @@ public class NodeSort {
      * @param nodes node-taulukko
      * @return nousevaan järjestykseen järjestetty node-taulukko
      */
-    public static Node[] nodeSort(Node[] nodes) {
+    public static Node[] sort(Node[] nodes) {
 
         for (int i = 0; i < nodes.length - 1; i++) {
             for (int j = i + 1; j < nodes.length; j++) {
