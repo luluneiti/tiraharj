@@ -137,7 +137,7 @@ public class TernaryHeapTest {
     @Test
     public void testPrint() {
         BinaryHeap heap = new BinaryHeap(20);
-        int etaisyys = 20;
+        int etaisyys = 15;
         for (int i = 0; i < 15; i++) {
             Node x1 = new Node(1, 3, etaisyys);
             heap.add(x1);

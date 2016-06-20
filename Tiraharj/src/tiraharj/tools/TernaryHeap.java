@@ -64,21 +64,23 @@ public class TernaryHeap implements Heap {
      */
     public void heapify(int i) {
 
-        int indexOfSmallest = 0;
+        int indexOfSmallest = i;
 
-        if (left(i) <= heapSize) {
+        if (left(i) <= heapSize && data[indexOfSmallest].compareTo(data[left(i)]) == 1) {
             indexOfSmallest = left(i);
-
-            if (middle(i) <= heapSize && data[indexOfSmallest].compareTo(data[middle(i)]) == 1) {
-                indexOfSmallest = middle(i);
-            }
-            if (right(i) <= heapSize && data[indexOfSmallest].compareTo(data[right(i)]) == 1) {
-                indexOfSmallest = right(i);
-            }
-            if (data[i].compareTo(data[indexOfSmallest]) == -1) {
-                heapify(indexOfSmallest);
-            }
         }
+
+        if (middle(i) <= heapSize && data[indexOfSmallest].compareTo(data[middle(i)]) == 1) {
+            indexOfSmallest = middle(i);
+        }
+        if (right(i) <= heapSize && data[indexOfSmallest].compareTo(data[right(i)]) == 1) {
+            indexOfSmallest = right(i);
+        }
+        if (indexOfSmallest != i) {
+            swap(i, indexOfSmallest);
+            heapify(indexOfSmallest);
+        }
+
     }
 
     /**
@@ -105,18 +107,19 @@ public class TernaryHeap implements Heap {
 
         if (!isFull()) {
             heapSize++;
+            data[heapSize] = node;
             int i = heapSize;
-            while (i > 1 && data[parent(i)].compareTo(node) == 1) {
-                data[i] = data[parent(i)];
+            while (i > 1 && data[parent(i)].compareTo(data[i]) == 1) {
+                swap(i, parent(i));
                 i = parent(i);
             }
-            data[i] = node;
         }
     }
 
     @Override
     public int parent(int i) {
-        return (i + 1) / this.amountOfChildren;
+        int j = (int) Math.floor((i - 2) / this.amountOfChildren);
+        return j + 1;
     }
 
     @Override

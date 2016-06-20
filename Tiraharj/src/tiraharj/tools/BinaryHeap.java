@@ -104,12 +104,13 @@ public class BinaryHeap implements Heap {
 
         if (!isFull()) {
             heapSize++;
+            data[heapSize] = node;
             int i = heapSize;
-            while (i > 1 && data[parent(i)].compareTo(node) == 1) {
-                data[i] = data[parent(i)];
+            while (i > 1 && data[parent(i)].compareTo(data[i]) == 1) {
+                swap(i,parent(i));
                 i = parent(i);
             }
-            data[i] = node;
+            
         }
     }
 
