@@ -15,12 +15,17 @@
 # Miten testit voidaan toistaa
   - JUnit testit voidaan ajaa uudelleen. Dijkstran ja Astarin testiluokissa on omat metodit 2- ja 3-keolle, jotta mahdolliset erot 
   kekojen välilä eivät haittaa testien ajamista.
-  - Käyttöliittymää (vielä kesken) tullaan testaamaan vain käsin eri testitapauksilla. 
+  - Käyttöliittymää tullaan testaamaan käsin eri testitapauksilla. 
     - Testitapaukset: 
       - eri algoritmien ajaminen eri keko-toteutuksilla
-      - tilastojen näyttäminen ja lyhimmän polun näyttäminen (polun näyttäminen ei toimi vielä ja sen toteutus kesken)
+      - tilastojen näyttäminen
+      - lyhimmän polun näyttäminen
       - etäisyyksien arpominen
-  
+      - validi lähtösolmu (ei tyhjä tai ulkona koordinaatistosta)
+      - validi maalisolmu (ei tyhjä tai ulkona koordinaatistosta)
+      - lähtä- ja/tai maalisolmu sama kuin este (max- 3 estettä)
+  - Pääohjelma käyttää samaan sovelluslogiikka oliota, eli voi kokeilla ajaa myös sen kautta isommilla matriiseilla ja suuremmilla
+  esteiden määrillä.
 # Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
 
 
