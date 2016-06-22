@@ -1,4 +1,30 @@
-
-    Miten ohjelma suoritetaan, miten eri toiminnallisuuksia käytetään
-    Minkä muotoisia syötteitä ohjelma hyväksyy
-    Missä hakemistossa on jar ja ajamiseen tarvittavat testitiedostot.
+# Miten ohjelma suoritetaan, miten eri toiminnallisuuksia käytetään
+    Ohjelman voi suorittaa käyttölittymän ja pääohjelman kautta
+        - Käyttöliittymä (matriisin koko ja esteiden määrä rajattu)
+            - Syötä lähtö- ja maalisolmun koordinaatit niille varattuihin tekstikenttiin.
+            - Valitse algoritmi: Dijkstra, Astar, IDAStar
+            - Valitse kekoratkaisu (Huom: IDAStar ei käytä kekoa, mutta kekoratkaisu on valittava)
+            - Arvo etäisyydet klikkaamalla "Arvo etäisydet" painiketta
+            - Syötä halutessasi esteiden koordinatit niille varattuihin tekstikenttiin. Esteitä voi olla max. kolme.
+            - Käynnistä algoritmi klikkaamalla "Etsi lyhin polku" painiketta.
+            --> Ohjelma palauttaa ajoon kuluneen ajan ja käsiteltyjen solmujen määrän". Kuittaa viesti.
+            --> Ohjelma palauttaa polun. Kuittaa viesti.
+        - Pääohjelma (matriisin koko ja esteiden määrä ei ole rajattu)
+            - Syötä lähtö- ja maalisolmun koordinaatit niille varattuihin muuttujiin
+            - Muuta matrix-matriisin sisältö (etäisyydet)
+            - Anna halutessasi esteet
+            - Ota kommenteista pois haluamasi yhdistelmä: algoritmi, kekoratkaisu (Huom: IDAStar ei käytä kekoa, mutta kekoratkaisu on valittava)
+            - Käynnistä pääohjelma
+        - Lisäksi PerformanceTest-luokan kautta voi tehdä isoja matriiseja ja arpoa etäisyydet siihen.
+# Minkä muotoisia syötteitä ohjelma hyväksyy
+    - Käyttöliittymä 
+            - Käyttöliittymällä syötetään koordinaatit, joiden pitää olla lukuja. 
+            - Ohjelman tarkistaa, etteivät lähtö- ja maalikoordinaatit ole tyhjät ja ettei este ole sama kuin lähtö- tai maalikoordinaatti.
+            - Ohjelma tarkistaa, että koordinaatit saavutettavissa.
+            - Ohjelma tarkistaa, ettei etäisyydet ole negatiivisia.
+    - Pääohjelma
+            - Ohjelmalle annetaan int[][] matriisi, jossa on etäisyydet ja Location[] taulukko, jossa on esteet.
+            - Ohjelma tarkistaa, että koordinaatit saavutettavissa.
+            - Ohjelma tarkistaa, ettei etäisyydet ole negatiivisia.
+# Missä hakemistossa on jar ja ajamiseen tarvittavat testitiedostot.
+    - 
