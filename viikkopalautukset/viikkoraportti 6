@@ -1,1 +1,26 @@
+* Mitä olen tehnyt tällä viikolla?
+    * Suorituskykytestitulosten saaminen kaavioiksi ja käyttöohjeen teko sekä muiden dokumenttien hiominen
+    * Käyttöliittymän toteuksen jatkaminen
+    * Pääohjelman muuttaminen käyttämään samaa sovelluslogiikka luokkaa kuin käyttöliittymä
+    * 3-keon ja 2-keon toteutuksen pohtiminen (osa pienistä luvuista jää edelleen keossa alakerroksiin kun keon koko kasvaa)
+    * Javadoc kommenttien hiominen ja generointi
+    * IDA* ja ongelmat useiden esteiden kanssa
+      
+* Miten ohjelma on edistynyt?
+    * Käyttöliittymän teko on ollut työlästä edelleen ja olen tehnyt kompromissin sen kanssa. 
+    * Nyt IDA* jaksaa käsitellä isoja matriiseja, mutta monet esteet aiheuttavat edelleen ongelmia
+    
+* Mitä opin tällä viikolla / tänään?
+    * 
+    
+* Mikä jäi epäselväksi tai tuottanut vaikeuksia? 
+    * 
+    
+* Mitä teen seuraavaksi?
+    * Kesäloma :)
 
+Tunnit:
+* 20.6.2016, 2 h: Dokumentointi
+* 21.6.2016, 7 h: Käyttöliittymä, javadoc kommenttien hiominen, pääohjelman muuttaminen, IDA*, kekoratkaisu
+* 22.6.2016, 7 h: Suorituskykytestitulosten saaminen kaavioiksi, käyttöohje, käyttöliittymä, javadoc kommenttien hiominen, IDA*
+* 23.6.2016, x h: Dokujen tsekkaus, release, ..
