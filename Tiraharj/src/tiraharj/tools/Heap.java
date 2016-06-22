@@ -2,19 +2,23 @@ package tiraharj.tools;
 
 import tiraharj.Node;
 
+/**
+ * Kuvaa keon tarjoamat palvelut
+ * @author Ulla
+ */
 public interface Heap {
 
     /**
-     * Palauttaa true/false riippuen siitä onko keko tyhjä
+     * Kertoo onko keko tyhjä
      *
-     * @return onko keko tyhjä
+     * @return true: tyhjä, false: ei tyhjä
      */
     public boolean isEmpty();
 
     /**
-     * Palauttaa true/false riippuen siitä onko keko täynnä
+     * Kertoo onko keko täynnä
      *
-     * @return onko keko täynnä
+     * @return true: täynnä, false: ei täynnä
      */
     public boolean isFull();
 
@@ -44,8 +48,8 @@ public interface Heap {
     /**
      * Palauttaa i indeksin kohdassa olevan alkion keskimmäiset lapsen indeksin (3-keko)
      *
-     * @param i
-     * @return
+     * @param i kenen keskimmäistä lasta etsitään
+     * @return keskimmäisen lapsen indeksi
      */
     public int middle(int i);
 

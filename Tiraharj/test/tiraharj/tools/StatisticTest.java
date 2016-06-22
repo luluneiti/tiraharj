@@ -31,11 +31,11 @@ public class StatisticTest {
     @Test
     public void testAddCounter() {
         Statistic instance = new Statistic();
-        assertEquals(0, instance.getOperCounter());
+        assertEquals(0, instance.getCounter());
         instance.addCounter();
-        assertEquals(1, instance.getOperCounter());
+        assertEquals(1, instance.getCounter());
         instance.addCounter();
-        assertEquals(2, instance.getOperCounter());
+        assertEquals(2, instance.getCounter());
     }
 
     @Test

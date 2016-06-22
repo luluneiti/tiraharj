@@ -67,14 +67,34 @@ public class IDAStarTest {
         ida.setStatistic(statistic);
         ida.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
         StackO stack = ida.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
-
+        ida.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), ida);
         assertEquals("0,2", graph.getXYByPointId(stack.pop()));
         assertEquals("0,3", graph.getXYByPointId(stack.pop()));
         assertEquals("0,4", graph.getXYByPointId(stack.pop()));
         assertEquals("1,4", graph.getXYByPointId(stack.pop()));
         assertEquals("2,4", graph.getXYByPointId(stack.pop()));
-        assertEquals("2,3", graph.getXYByPointId(stack.pop()));
+        assertEquals("3,4", graph.getXYByPointId(stack.pop()));
 
     }
+    @Test
+    public void testFindPathWithObstacles2() {
 
+        int[][] matrix = {{2, 8, 4, 1, 1}, {7, 6, 8, 9, 1}, {5, 5, 1, 1, 1}, {8, 1, 1, 2, 2}, {8, 1, 1, 2, 2}};
+        Graph graph = new Graph(matrix);
+        boolean[] obstacles = new boolean[graph.getNodeAmount()];
+        Heuristic heuristic = new Manhattan();
+        obstacles[graph.getPointId(3, 2)] = true; //Ida herkkä usealle matkan varrella olevalle esteelle
+        obstacles[graph.getPointId(1, 2)] = true;
+        obstacles[graph.getPointId(4, 1)] = true;
+        obstacles[graph.getPointId(4, 2)] = true;
+        graph.setObstacles(obstacles);
+        ida.setStatistic(statistic);
+        ida.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
+        StackO stack = ida.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
+        ida.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), ida);
+        assertEquals("2,2", graph.getXYByPointId(stack.pop()));
+        assertEquals("2,3", graph.getXYByPointId(stack.pop()));
+        
+
+    }
 }

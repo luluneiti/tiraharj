@@ -8,6 +8,10 @@ import tiraharj.tools.NodeSort;
 import tiraharj.tools.StackO;
 import tiraharj.tools.Statistic;
 
+/**
+ *  Tarjoaa palvelun lyhimmän polun etsintään IDAStar-algoritmilla
+ * @author Ulla
+ */
 public class IDAStar implements ShortestPath {
 
     private boolean emptyRoute;
@@ -21,14 +25,6 @@ public class IDAStar implements ShortestPath {
         statistic = stat;
     }
 
-    /**
-     * Etsii lyhimmän polun verkossa lähtösolmusta maalisolmuun
-     *
-     * @param graph verkko, josta lyhintä polkua etsitään
-     * @param start lähtösolmu, josta etsintä aloitetaan
-     * @param goal maalisolmu, johon etsintä päättyy
-     * @param heuristic
-     */
     @Override
     public void findPath(Graph graph, Node start, Node goal, Heuristic heuristic) {
 
@@ -69,9 +65,9 @@ public class IDAStar implements ShortestPath {
         }
 
         Integer min = Integer.MAX_VALUE;
-        Node[] nextsorg = graph.getNeighbors(graph, current, heuristic);
+        Node[] nexts = graph.getNeighbors(graph, current, heuristic);
         //Arrays.sort(nexts); 
-        Node[] nexts = NodeSort.sort(nextsorg); //nopeuttaa algoritmia
+//        Node[] nexts = NodeSort.sort(nextsorg); //nopeuttaa algoritmia, mutta otettu pois käytöstä
 
         for (Node next : nexts) {
             if (next != null) { ///jos esteitä solmun ympärillä, ei naapureita

@@ -1,103 +1,101 @@
 package tiraharj;
 
-import tiraharj.tools.Statistic;
-import java.util.Stack;
-import tiraharj.algorithm.Astar;
-import tiraharj.algorithm.Dijkstra;
-import tiraharj.Graph;
-import tiraharj.algorithm.Heuristic;
-import tiraharj.algorithm.Manhattan;
-import tiraharj.Node;
-import tiraharj.algorithm.IDAStar;
-import tiraharj.algorithm.ShortestPath;
-import tiraharj.tools.BinaryHeap;
-import tiraharj.tools.Heap;
-import tiraharj.tools.TernaryHeap;
+import tiraharj.tools.RandomNumber;
 
+/**
+ * Pääohjelma, jonka kautta voi myös ajaa algoritmeja.
+ *
+ * @author Ulla
+ */
 public class Main {
 
+    private static int startX = 1;
+    private static int startY = 2;
+    private static int goalX = 19;
+    private static int goalY = 10;
+
+    /**
+     * Pääohjelma, jonka kautta voi ajaa algoritmeja. 
+     * Editoi matrix-matriisi (etäisyydet) tai anna parametrit ja anna ohjelman arpoa numerot. 
+     * Editoi obstacles-taulukko (esteet). 
+     * Valitse ajettava algoritmi ottamalla se pois kommenteista.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
-        int[][] matrix = {{2, 8, 4, 6, 3, 7, 6, 8, 9, 1}, {7, 6, 8, 9, 1, 5, 5, 6, 1, 1}, {5, 5, 6, 1, 1, 8, 1, 1, 2, 2}, {7, 6, 8, 9, 1, 8, 1, 1, 2, 2}, {2, 8, 4, 6, 3, 7, 6, 8, 9, 1}, {7, 6, 8, 9, 1, 2, 8, 4, 6, 3}, {2, 8, 4, 6, 3, 5, 5, 6, 1, 1}, {2, 8, 4, 6, 3, 8, 1, 1, 2, 2}, {5, 5, 6, 1, 1, 8, 1, 1, 2, 2}, {2, 8, 4, 2, 8, 4, 6, 3, 6, 3}};
+        //************ETÄISYYDET
+//        int[][] matrix
+//                = {{2, 8, 4, 6, 3, 7, 6, 8, 9, 1, 7, 6, 8, 9, 1, 5, 5, 6, 1, 1},
+//                {2, 8, 4, 6, 3, 7, 6, 8, 9, 1, 7, 6, 8, 9, 1, 2, 8, 4, 6, 3},
+//                {2, 8, 4, 6, 3, 7, 6, 8, 9, 1, 7, 6, 8, 9, 1, 2, 8, 4, 6, 3},
+//                {7, 6, 8, 9, 1, 8, 1, 1, 2, 2, 5, 5, 6, 1, 1, 8, 1, 1, 2, 2},
+//                {2, 8, 4, 6, 3, 7, 6, 8, 9, 1, 7, 6, 8, 9, 1, 2, 8, 4, 6, 3},
+//                {7, 6, 8, 9, 1, 5, 5, 6, 1, 1, 2, 8, 4, 6, 3, 7, 6, 8, 9, 1},
+//                {7, 6, 8, 9, 1, 8, 1, 1, 2, 2, 5, 5, 6, 1, 1, 8, 1, 1, 2, 2},
+//                {7, 6, 8, 9, 1, 8, 1, 1, 2, 2, 5, 5, 6, 1, 1, 8, 1, 1, 2, 2},
+//                {2, 8, 4, 6, 3, 7, 6, 8, 9, 1, 7, 6, 8, 9, 1, 2, 8, 4, 6, 3},
+//                {2, 8, 4, 6, 3, 7, 6, 8, 9, 1, 7, 6, 8, 9, 1, 2, 8, 4, 6, 3},
+//                {5, 5, 6, 1, 1, 8, 1, 1, 2, 2, 7, 6, 8, 9, 1, 8, 1, 1, 2, 2},
+//                {7, 6, 8, 9, 1, 8, 1, 1, 2, 2, 5, 5, 6, 1, 1, 8, 1, 1, 2, 2},
+//                {2, 8, 4, 6, 3, 7, 6, 8, 9, 1, 7, 6, 8, 9, 1, 2, 8, 4, 6, 3},
+//                {7, 6, 8, 9, 1, 2, 8, 4, 6, 3, 2, 8, 4, 6, 3, 7, 6, 8, 9, 1},
+//                {2, 8, 4, 6, 3, 5, 5, 6, 1, 1, 2, 8, 4, 6, 3, 8, 1, 1, 2, 2},
+//                {2, 8, 4, 6, 3, 8, 1, 1, 2, 2, 2, 8, 4, 6, 3, 8, 1, 1, 2, 2},
+//                {7, 6, 8, 9, 1, 8, 1, 1, 2, 2, 5, 5, 6, 1, 1, 8, 1, 1, 2, 2},
+//                {2, 8, 4, 6, 3, 7, 6, 8, 9, 1, 7, 6, 8, 9, 1, 2, 8, 4, 6, 3},
+//                {5, 5, 6, 1, 1, 8, 1, 1, 2, 2, 2, 8, 4, 2, 8, 4, 6, 3, 6, 3},
+//                {2, 8, 4, 2, 8, 4, 6, 3, 6, 3, 2, 8, 4, 2, 8, 4, 6, 3, 6, 3}};
 //        int[][] matrix = {{2, 8, 4, 1, 1}, {7, 6, 8, 9, 1}, {5, 5, 1, 1, 1}, {8, 1, 1, 2, 2}, {8, 1, 1, 2, 2}};
 //        int[][] matrix = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1} };
 //        int[][] matrix = {{1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}};
-        boolean[] obstacles = new boolean[99];
+        
+        final int MATRIXSIZE = 20;
+        final int MAXDISTANCE = 9;
+        int[][] matrix = new int[MATRIXSIZE][MATRIXSIZE];
 
-        Graph graph = new Graph(matrix);
-        obstacles[graph.getPointId(2, 2)] = true;
-        obstacles[graph.getPointId(4, 5)] = true;
-        obstacles[graph.getPointId(5, 5)] = true;
-        obstacles[graph.getPointId(6, 5)] = true;
-        graph.setObstacles(obstacles);
+        for (int i = 0; i < MATRIXSIZE; i++) {
+            for (int j = 0; j < MATRIXSIZE; j++) {
+                matrix[i][j] = RandomNumber.getNumber(MAXDISTANCE);
+            }
+        }
+        ApplicationLogic logic = new ApplicationLogic();
+        boolean virhe = false;
+
+        //************ESTEET
+        Location[] obstacles = new Location[4];
+        obstacles[0] = new Location(1, 1);
+        obstacles[0] = new Location(1, 2);
+        obstacles[0] = new Location(2, 15);
+        obstacles[0] = new Location(19, 19);
 
         for (int i = 0; i < matrix[0].length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                System.out.print(" " + matrix[i][j]);
+                if (logic.distanceOk(matrix[i][j])) {
+                    System.out.print(" " + matrix[i][j]);
+                } else {
+                    System.out.println("Tarkista sisältö: " + i + ":" + j);
+                    virhe = true;
+                }
             }
             System.out.println("");
         }
 
-//        runDijkstra(graph);
-//        runAstar(graph);
-        runIDAStar(graph);
+        if (virhe == false) {
+
+            //************VALISE YKSI ALGORITMI OTTAMALLA SE POIS KOMMENTEISTA
+            // 2-keolla
+        System.out.println(logic.runAlgorithm(matrix, obstacles, "Dijkstra", "manhattan", "bheap", startX, startY, goalX, goalY));
+//            System.out.println(logic.runAlgorithm(matrix, obstacles, "Astar", "manhattan", "bheap", startX, startY, goalX, goalY));
+        // IDAstar ei käytä kekoa vaikka bheap parametreissä
+//        System.out.println(logic.runAlgorithm(matrix, obstacles, "Idastar", "manhattan", "bheap", startX, startY, goalX, goalY));
+            //3-keolla
+//        System.out.println(logic.runAlgorithm(matrix, obstacles, "Dijkstra", "manhattan", "theap", startX, startY, goalX, goalY));
+//        System.out.println(logic.runAlgorithm(matrix, obstacles, "Astar", "manhattan", "theap", startX, startY, goalX, goalY));
+
+            //************TULOSTAA REITIN
+            System.out.println(logic.showPath(startX, startY, goalX, goalY));;
+        }
     }
 
-    public static void runDijkstra(Graph graph) {
-
-        Statistic statistic = new Statistic();
-        /**
-         * *********************************************
-         */
-        Heap heap = new BinaryHeap(graph.getNodeAmount() + 1);
-        ShortestPath dijkstra = new Dijkstra(heap);
-        Heuristic heuristic = new Manhattan();
-//        ShortestPath dijkstra = new Dijkstra(new TernaryHeap(graph.getNodeAmount()+1));
-        //prioriteettijono pitää editoida ohjelmassa
-        /**
-         * *********************************************
-         */
-        dijkstra.setStatistic(statistic);
-        statistic.startClock();
-        dijkstra.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
-        statistic.stopClock();
-        dijkstra.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), dijkstra);
-        System.out.println("Dijkstra: " + statistic);
-        heap.clean();
-    }
-
-    public static void runAstar(Graph graph) {
-
-        Statistic statistic = new Statistic();
-        /**
-         * *********************************************
-         */
-        Heap heap = new BinaryHeap(graph.getNodeAmount() + 1);
-        ShortestPath astar = new Astar(heap);
-//        ShortestPath astar = new Astar(new TernaryHeap(graph.getNodeAmount()+1));
-        //prioriteettijono pitää editoida ohjelmassa
-        /**
-         * *********************************************
-         */
-        astar.setStatistic(statistic);
-        Heuristic heuristic = new Manhattan();
-        statistic.startClock();
-        astar.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
-        statistic.stopClock();
-        astar.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), astar);
-        System.out.println("Astar: " + statistic);
-        heap.clean();
-    }
-
-    public static void runIDAStar(Graph graph) {
-        Statistic statistic = new Statistic();
-        ShortestPath ida = new IDAStar(); //toistaiseksi rajapinta pois!
-        ida.setStatistic(statistic);
-        Heuristic heuristic = new Manhattan();
-        statistic.startClock();
-        ida.findPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), heuristic);
-        statistic.stopClock();
-        ida.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), ida);
-        System.out.println("IDAstar: " + statistic);
-    }
 }

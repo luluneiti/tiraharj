@@ -2,24 +2,36 @@ package tiraharj.tools;
 
 import tiraharj.Node;
 
+/**
+ * Pino tietorakenne
+ * @author Ulla
+ */
 public class StackO {
 
-    private int[] data; //voisi olla object täällä ja heap:ssä! 
+    private int[] data; 
     private int top;
     private int sizeReservation;
 
+    /**
+     * Konstruktori pinon luomiseksi. Luokka ei sisällä metodia tilavarauksen kasvattamiseksi.
+     * @param sizeReservation tilavaatimus
+     */
     public StackO(int sizeReservation) {
         top = -1;
         data = new int[sizeReservation];
         this.sizeReservation = sizeReservation;
     }
 
+    /**
+     * Palauttaa pinon päällä olevan, mutta ei poista sitä
+     * @return pinon päällimmmäinen
+     */
     public int getFirst() { //testiä varten
         return data[top];
     }
 
     /**
-     * Lisää verkon solmun pinon päälle
+     * Poistaa ja palauttaa pinon päällä olevan verkon solmun
      *
      * @return verkon solmu
      */
@@ -35,9 +47,9 @@ public class StackO {
     }
 
     /**
-     * Poistaa ja palauttaa pinon päällä olevan verkon solmun
+     * Lisää uuden luvun pinon päälle
      *
-     * @param newOne
+     * @param newOne lisättävä luku
      */
     public void push(int newOne) {
         if (!isFull()) {
@@ -47,24 +59,21 @@ public class StackO {
     }
 
     /**
-     * Palauttaa true/false riippuen siitä onko pino tyhjä
+     * Kertoo onko pino tyhjä
      *
-     * @return true/false riippuen siitä onko pino tyhjä
+     * @return true: tyhjä, false: ei tyhjä 
      */
     public boolean isEmpty() {
         return top == -1;
     }
 
     /**
-     * true/false riippuen siitä onko pino täysi (taulukko täynnä)
+     * Kertoo onko pino täysi (taulukko täynnä)
      *
-     * @return true/false riippuen siitä onko pino täysi
+     * @return true: täynnä, false: ei täynnä
      */
     public boolean isFull() {
         return top == data.length - 1;
     }
 
-    public void clean() {
-
-    }
 }

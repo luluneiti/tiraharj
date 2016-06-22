@@ -3,6 +3,10 @@ package tiraharj.algorithm;
 import tiraharj.Location;
 import tiraharj.Node;
 
+/**
+ * Tarjoaa etäisyyden ja naapureiden päättelyn manhattan periaatteella
+ * @author Ulla
+ */
 public class Manhattan implements Heuristic {
 
     @Override

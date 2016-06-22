@@ -57,6 +57,9 @@ public class GraphTest {
         obstacles[graph.getPointId(2, 3)] = true;
         graph.setObstacles(obstacles);
         assertEquals(false, graph.isTraversable(3, 5));
+        assertEquals(false, graph.isTraversable(4, 4));
+        assertEquals(false, graph.isTraversable(1, 4));
+        assertEquals(false, graph.isTraversable(2, 3));
 
     }
 
@@ -67,10 +70,14 @@ public class GraphTest {
         boolean[] obstacles = new boolean[graph.getNodeAmount()];
         obstacles[graph.getPointId(3, 4)] = true;
         obstacles[graph.getPointId(4, 4)] = true;
-        obstacles[graph.getPointId(3, 4)] = true;
+        obstacles[graph.getPointId(3, 2)] = true;
         obstacles[graph.getPointId(4, 1)] = true;
         graph.setObstacles(obstacles);
         assertEquals(true, graph.isTraversable(3, 1));
+        assertEquals(false, graph.isTraversable(3, 4));
+        assertEquals(false, graph.isTraversable(4, 4));
+        assertEquals(false, graph.isTraversable(3, 2));
+        assertEquals(false, graph.isTraversable(4, 1));
 
     }
 
@@ -114,11 +121,12 @@ public class GraphTest {
         assertEquals(true, isInList(list, new Node(2, 1, 1)));
         assertEquals(true, isInList(list, new Node(2, 3, 1)));
     }
+
     @Test
     public void testGetNeighborsWihtHeuristic() {
         int[][] matrix = {{1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 1, 1, 1, 1}};
         Graph graph = new Graph(matrix);
-        Heuristic heur=new Manhattan();
+        Heuristic heur = new Manhattan();
         Node[] list = graph.getNeighbors(graph, new Node(2, 2, 0), heur);
         assertEquals(4, list.length);
         assertEquals(true, isInList(list, new Node(1, 2, 1)));

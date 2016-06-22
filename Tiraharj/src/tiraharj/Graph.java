@@ -2,6 +2,10 @@ package tiraharj;
 
 import tiraharj.algorithm.Heuristic;
 
+/**
+ * Tarjoaa verkkoon liittyviä palveluita algoritmeille
+ * @author Ulla
+ */
 public class Graph {
 
     private int width;
@@ -16,9 +20,9 @@ public class Graph {
     }
 
     /**
-     * Asettaa esteet koordinaatistoon
+     * Asettaa esteet koordinaatistoon (ei voi kulkea ko. koordinaatistopisteen kautta)
      *
-     * @param obstacles
+     * @param obstacles esteet
      */
     public void setObstacles(boolean[] obstacles) {
         this.obstacles = obstacles;
@@ -43,12 +47,10 @@ public class Graph {
     }
 
     /**
-     * Kertoo onko parametrin xy-koordinaatti saavutettavissa / koordinaatiston
-     * "sisällä"
-     *
+     * Kertoo onko parametrina annettu piste (x,y) saavutettavissa
      * @param x koordinaatin x-arvo
      * @param y koordinaatin y-arvo
-     * @return true tai false
+     * @return true: piste saavutettavissa, false: piste ei saavutettavissa
      */
     public boolean isReachable(int x, int y) {
 
@@ -56,11 +58,11 @@ public class Graph {
     }
 
     /**
-     * Kertoo onko parametrin koordinaatissa estettä
+     * Kertoo onko parametrina annetussa pisteessä (x,y) estettä
      *
      * @param x koordinaatin x-arvo
      * @param y koordinaatin y-arvo
-     * @return true tai false
+     * @return true: on este, false: ei estettä
      */
     public boolean isTraversable(int x, int y) {
 
@@ -84,7 +86,7 @@ public class Graph {
 
     /**
      * Palauttaa parametrina annetun solmun naapurisolmut Huom: myös Dijkstra
-     * käyttää heuristiikkaa sen päättelyssä, että minne voi liikkue.
+     * käyttää heuristiikkaa naapuripäättelyssä (ketkä naapureita).
      *
      * @param graph verkko, jossa solmu sijaitsee
      * @param node solmu, jonka naapurit etsitään (solmu tuntee oman
@@ -135,7 +137,7 @@ public class Graph {
     }
 
     /**
-     * Palauttaa yksilöllisen tunnuksen koordinaatiston pisteelle
+     * Palauttaa yksilöllisen tunnuksen koordinaatiston pisteelle (x * this.width + y)
      *
      * @param x koordinaatin x-arvo
      * @param y koordinaatin y-arvo
@@ -146,9 +148,9 @@ public class Graph {
     }
 
     /**
-     *
-     * @param id
-     * @return
+     * Palauttaa x- ja y- koordinaatit koordinaatiston pisteen tunnuksella
+     * @param id koordinaattipisteen id
+     * @return x- ja y-koordinaatti merkkijonona
      */
     public String getXYByPointId(int id) {
         int a = id / this.width;

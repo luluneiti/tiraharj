@@ -5,8 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import tiraharj.tools.RandomNumber;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
+/**
+ * Graafinen käyttöliittymä, jonka kautta voi ajaa eri algoritmeja
+ *
+ * @author Ulla
+ */
 public class UserInterface extends JFrame implements ActionListener {
 
     private JButton distance;
@@ -26,15 +33,25 @@ public class UserInterface extends JFrame implements ActionListener {
     private ButtonGroup heap;
     private JRadioButton manhattan;
     private ButtonGroup heuristic;
+    private JLabel obst;
+    private JTextField obst1X;
+    private JTextField obst1Y;
+    private JTextField obst2X;
+    private JTextField obst2Y;
+    private JTextField obst3X;
+    private JTextField obst3Y;
     private JPanel grid;
+    private JPanel search;
     private JTable table;
     private DefaultTableModel def;
     private ApplicationLogic logic;
     private static UserInterface g;
+    private final int TABLESIZE = 10; //käyttöliittymän taulukon koko
 
     /**
      * Käyttöliittymän pääohjelma
-     * @param args
+     *
+     * @param args args
      */
     public static void main(String[] args) {
 
@@ -53,42 +70,60 @@ public class UserInterface extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        logic.setUI(g);
         JButton kohde = (JButton) e.getSource();
 
         if (kohde.getText().contains("Arvo")) {
-
             setDistances();
-
         }
         if (kohde.getText().contains("Etsi")) {
 
-            this.setRed(Integer.parseInt(startX.getText()), Integer.parseInt(startY.getText()));
-            this.setRed(Integer.parseInt(goalX.getText()), Integer.parseInt(goalY.getText()));
-            startAlgorithm();
-            JOptionPane.showMessageDialog(null, logic.showPath(Integer.parseInt(startX.getText()), Integer.parseInt(startY.getText()), Integer.parseInt(goalX.getText()), Integer.parseInt(goalY.getText())));
-            this.repaint();
+            if (coordinatesOK()) {
+                startAlgorithm();
+                JOptionPane.showMessageDialog(null, logic.showPath(Integer.parseInt(startX.getText()), Integer.parseInt(startY.getText()), Integer.parseInt(goalX.getText()), Integer.parseInt(goalY.getText())));
+                this.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Tarkista lähtö- ja maalikoordinaatit sekä esteiden koordinaatit.");
+            }
 
         }
     }
 
-    /**
-     * Lyhimmän polun merkitsemiseksi ruutu värjätään 
-     * @param x x-koordinaatti
-     * @param y y-koordinaatti
-     */
-    public void setRed(int x, int y) {
-
-        Component comp = table.findComponentAt(x, y);
-        comp.setForeground(Color.red);
-
+    private boolean coordinatesOK() {
+        if (startX.getText().isEmpty() || startY.getText().isEmpty() || goalX.getText().isEmpty() || goalY.getText().isEmpty()) {
+            return false;
+        }
+        if (obst1X.getText().equals(startX.getText()) && obst1Y.getText().equals(startY.getText())) {
+            return false;
+        }
+        if (obst2X.getText().equals(startX.getText()) && obst2Y.getText().equals(startY.getText())) {
+            return false;
+        }
+        if (obst3X.getText().equals(startX.getText()) && obst3Y.getText().equals(startY.getText())) {
+            return false;
+        }
+        if (obst1X.getText().equals(goalX.getText()) && obst1Y.getText().equals(goalY.getText())) {
+            return false;
+        }
+        if (obst2X.getText().equals(goalX.getText()) && obst2Y.getText().equals(goalY.getText())) {
+            return false;
+        }
+        if (obst3X.getText().equals(goalX.getText()) && obst3Y.getText().equals(goalY.getText())) {
+            return false;
+        }
+        return true;
     }
-    
+
+    /**
+     * Alustaa algoritmin ajamiseen liittyvät muuttujat/oliot ja käynnistää
+     * algoritmin
+     *
+     */
     private void startAlgorithm() throws NumberFormatException, HeadlessException {
 
         try {
-            boolean[] obstacles = new boolean[table.getWidth() * table.getHeight()];
-            int[][] matrix = getTableData(table, def);
+            Location[] location = getObstacle();
+
+            int[][] matrix = getMatrix(table, def);
 
             String heapName = "";
             if (bheap.isSelected()) {
@@ -97,40 +132,52 @@ public class UserInterface extends JFrame implements ActionListener {
                 heapName = "theap";
             }
 
-            String heuristicName = "";
-            if (manhattan.isSelected()) {
-                heuristicName = "manhattan";
-            }
+            String heuristicName = "manhattan";
 
             String algorithmName = "";
             if (dijkstra.isSelected()) {
                 algorithmName = "Dijkstra";
-                JOptionPane.showMessageDialog(null, algorithmName + ":"
-                        + logic.runAlgorithm(matrix, obstacles, algorithmName, heuristicName, heapName, Integer.parseInt(startX.getText()), Integer.parseInt(startY.getText()), Integer.parseInt(goalX.getText()), Integer.parseInt(goalY.getText())));
-
             }
             if (astar.isSelected()) {
                 algorithmName = "Astar";
-                JOptionPane.showMessageDialog(null, algorithmName + ":"
-                        + logic.runAlgorithm(matrix, obstacles, algorithmName, heuristicName, heapName, Integer.parseInt(startX.getText()), Integer.parseInt(startY.getText()), Integer.parseInt(goalX.getText()), Integer.parseInt(goalY.getText())));
-
             }
-
             if (idastar.isSelected()) {
                 algorithmName = "Idastar";
-                JOptionPane.showMessageDialog(null, algorithmName + ":"
-                        + logic.runAlgorithm(matrix, obstacles, algorithmName, heuristicName, heapName, Integer.parseInt(startX.getText()), Integer.parseInt(startY.getText()), Integer.parseInt(goalX.getText()), Integer.parseInt(goalY.getText())));
-
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Sovelluksessa on tapahtunut virhe.");
-        }
 
+            JOptionPane.showMessageDialog(null, algorithmName + ":"
+                    + logic.runAlgorithm(matrix, location, algorithmName, heuristicName, heapName, Integer.parseInt(startX.getText()), Integer.parseInt(startY.getText()), Integer.parseInt(goalX.getText()), Integer.parseInt(goalY.getText())));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Sovelluksessa on tapahtunut virhe: " + e.getMessage());
+        }
     }
 
+    private Location[] getObstacle() throws NumberFormatException {
+        Location[] location = new Location[3];
+        int i = 0;
+        if (!obst1X.getText().isEmpty() && !obst1Y.getText().isEmpty()) {
+            location[i] = new Location(Integer.parseInt(obst1X.getText()), Integer.parseInt(obst1Y.getText()));
+            i++;
+        }
+        if (!obst2X.getText().isEmpty() && !obst2Y.getText().isEmpty()) {
+            location[i] = new Location(Integer.parseInt(obst2X.getText()), Integer.parseInt(obst2Y.getText()));
+            i++;
+        }
+        if (!obst3X.getText().isEmpty() && !obst3Y.getText().isEmpty()) {
+            location[i] = new Location(Integer.parseInt(obst3X.getText()), Integer.parseInt(obst3Y.getText()));
+        }
+        return location;
+    }
+
+    /**
+     * Asettaa arvotut etäisyydet taulukkoon
+     *
+     */
     private void setDistances() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        int nRow = def.getRowCount(), nCol = def.getColumnCount();
+        for (int i = 0; i < nRow; i++) {
+            for (int j = 0; j < nCol; j++) {
                 int k = RandomNumber.getNumber(9);
                 table.setValueAt(k, i, j);
             }
@@ -138,7 +185,11 @@ public class UserInterface extends JFrame implements ActionListener {
         this.repaint();
     }
 
-    private int[][] getTableData(JTable table, DefaultTableModel def) {
+    /**
+     * Siirtää tiedot Jtablesta matriisiin
+     *
+     */
+    private int[][] getMatrix(JTable table, DefaultTableModel def) {
         int nRow = def.getRowCount(), nCol = def.getColumnCount();
         int[][] matrix = new int[nRow][nCol];
         for (int i = 0; i < nRow; i++) {
@@ -154,26 +205,35 @@ public class UserInterface extends JFrame implements ActionListener {
         return matrix;
     }
 
+    /**
+     * Luo käyttöliittymän, sovelluslogiikka olion ja taulukon sekä asettaa
+     * tapahtumankuuntelijan buttoneihin
+     *
+     */
     private void createGUI() {
-
-        logic = new ApplicationLogic();
         this.setLayout(new FlowLayout());
-        this.setSize(9000, 9000);
+        this.setSize(10000, 20000);
         createComponents();
         table.setRowHeight(20);
-        table.setSize(10, 10);
+        table.setSize(TABLESIZE, TABLESIZE);
         Integer k = 1;
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        int nRow = def.getRowCount(), nCol = def.getColumnCount();
+        for (int i = 0; i < nRow; i++) {
+            for (int j = 0; j < nCol; j++) {
                 table.setValueAt(k, i, j);
             }
         }
         setComponents();
+        logic = new ApplicationLogic();
         distance.addActionListener(this);
         run.addActionListener(this);
 
     }
 
+    /**
+     * Luo käyttöliittymäkomponentit
+     *
+     */
     private void createComponents() {
         start = new JLabel("Lähtö:", 10);
         startX = new JTextField("", 3);
@@ -193,36 +253,58 @@ public class UserInterface extends JFrame implements ActionListener {
         distance = new JButton("Arvo etäisyydet");
         run = new JButton("Etsi lyhin polku");
         grid = new JPanel();
+        search = new JPanel();
         heap = new ButtonGroup();
         algorithm = new ButtonGroup();
         heuristic = new ButtonGroup();
         algorithm.add(dijkstra);
         algorithm.add(astar);
         algorithm.add(idastar);
+        obst = new JLabel("Anna esteet:", 10);
+        obst1X = new JTextField("", 3);
+        obst1Y = new JTextField("", 3);
+        obst2X = new JTextField("", 3);
+        obst2Y = new JTextField("", 3);
+        obst3X = new JTextField("", 3);
+        obst3Y = new JTextField("", 3);
         heap.add(bheap);
         heap.add(theap);
         heuristic.add(manhattan);
         String col[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        Object[] objs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         def = new DefaultTableModel(col, 10);
         table = new JTable(def);
     }
 
+    /**
+     * Asettaa käyttöliittymäkomponentit näytölle
+     *
+     */
     private void setComponents() {
-        this.add(table);
-        this.add(start);
-        this.add(startX);
-        this.add(startY);
-        this.add(goal);
-        this.add(goalX);
-        this.add(goalY);
-        this.add(dijkstra);
-        this.add(astar);
-        this.add(bheap);
-        this.add(theap);
-        this.add(manhattan);
-        this.add(distance);
-        this.add(run);
+        grid.add(table);
+        search.add(start);
+        search.add(startX);
+        search.add(startY);
+        search.add(goal);
+        search.add(goalX);
+        search.add(goalY);
+        search.add(dijkstra);
+        search.add(astar);
+        search.add(idastar);
+        search.add(bheap);
+        search.add(theap);
+        search.add(manhattan);
+        search.add(distance);
+        search.add(obst);
+        search.add(obst1X);
+        search.add(obst1Y);
+        search.add(obst2X);
+        search.add(obst2Y);
+        search.add(obst3X);
+        search.add(obst3Y);
+        search.add(run);
+        this.add(search, BorderLayout.PAGE_START);
+        this.add(grid, BorderLayout.PAGE_END);
+
     }
 
 }

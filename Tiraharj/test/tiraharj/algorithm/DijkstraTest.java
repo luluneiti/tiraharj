@@ -10,8 +10,6 @@ import org.junit.Test;
 import tiraharj.Graph;
 import tiraharj.Node;
 import static org.junit.Assert.*;
-import static tiraharj.Main.runAstar;
-import static tiraharj.Main.runDijkstra;
 import tiraharj.tools.BinaryHeap;
 import tiraharj.tools.StackO;
 import tiraharj.tools.Statistic;

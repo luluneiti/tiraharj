@@ -1,6 +1,9 @@
 package tiraharj;
 
-//käytetään x, y koordinaatti -joukon välittämiseen eri luokkien välillä
+/**
+ * Käytetään koordinaatistopiste (x, y) -joukon välittämiseen eri luokkien välillä
+ * @author Ulla
+ */
 public class Location {
 
     int x;
@@ -11,14 +14,23 @@ public class Location {
         this.y = y;
     }
 
+    /**
+     * Palauttaa x-koordinaatin
+     * @return x-koordinaatin
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Palauttaa y-koordinaatin
+     * @return y-koordinaatti
+     */
     public int getY() {
         return y;
     }
 
+    @Override
     public String toString() {
         return ""+this.x+" "+this.y;
     }

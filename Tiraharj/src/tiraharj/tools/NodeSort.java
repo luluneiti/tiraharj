@@ -2,6 +2,10 @@ package tiraharj.tools;
 
 import tiraharj.Node;
 
+/**
+ * Käytetään solmujen järjestämiseen
+ * @author Ulla
+ */
 public class NodeSort {
 
     public NodeSort() {
@@ -9,8 +13,8 @@ public class NodeSort {
     }
 
     /**
-     * Sorttaa node-taulukon nousevaan järjestykseen
-     * @param nodes node-taulukko
+     * Järjestää node-olioita sisältävän taulukon nousevaan järjestykseen Noden compareTo-metodin mukaisesti
+     * @param nodes node olio-taulukko
      * @return nousevaan järjestykseen järjestetty node-taulukko
      */
     public static Node[] sort(Node[] nodes) {

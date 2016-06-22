@@ -2,6 +2,10 @@ package tiraharj.tools;
 
 import tiraharj.Node;
 
+/**
+ * 2-keon toteutus
+ * @author Ulla
+ */
 public class BinaryHeap implements Heap {
 
     private Node[] data;
@@ -9,6 +13,10 @@ public class BinaryHeap implements Heap {
     private final int FIRST = 1;
     private int sizeReservation;
 
+    /**
+     * Konstruktori 2-keon luomiseksi. Luokka ei sisällä metodia tilavarauksen kasvattamiseksi.
+     * @param sizeReservation tilavaatimus
+     */
     public BinaryHeap(int sizeReservation) {
         data = new Node[sizeReservation];
         heapSize = 0;
@@ -56,8 +64,7 @@ public class BinaryHeap implements Heap {
 
     /**
      * Korjaa keon kekoehtojen mukaiseksi
-     *
-     * @param i keon taulukon indeksi kertoo, tarkistettavan keon alkion
+     * @param i keon taulukon indeksi kertoo tarkistettavan keon alkion
      * sijainnin
      */
     public void heapify(int i) {
@@ -126,7 +133,7 @@ public class BinaryHeap implements Heap {
 
     @Override
     public int middle(int i) {
-        throw new UnsupportedOperationException("Not supported.");
+        throw new UnsupportedOperationException("Not supported by 2-heap.");
     }
 
     @Override

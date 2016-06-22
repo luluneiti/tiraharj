@@ -2,6 +2,11 @@ package tiraharj.tools;
 
 import tiraharj.Node;
 
+/**
+ * 3-keon toteutus
+ *
+ * @author Ulla
+ */
 public class TernaryHeap implements Heap {
 
     private Node[] data;
@@ -10,6 +15,10 @@ public class TernaryHeap implements Heap {
     private int amountOfChildren;
     private int sizeReservation;
 
+    /**
+     * Konstruktori 3-keon luomiseksi. Luokka ei sisällä metodia tilavarauksen kasvattamiseksi.
+     * @param sizeReservation tilavaatimus
+     */
     public TernaryHeap(int sizeReservation) {
         this.data = new Node[sizeReservation];
         this.heapSize = 0;
@@ -59,7 +68,7 @@ public class TernaryHeap implements Heap {
     /**
      * Korjaa keon kekoehtojen mukaiseksi
      *
-     * @param i keon taulukon indeksi kertoo, tarkistettavan keon alkion
+     * @param i keon taulukon indeksi kertoo tarkistettavan keon alkion
      * sijainnin
      */
     public void heapify(int i) {

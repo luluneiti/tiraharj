@@ -13,32 +13,43 @@ import tiraharj.tools.Heap;
 import tiraharj.tools.RandomNumber;
 import tiraharj.tools.TernaryHeap;
 
+/**
+ * Tätä luokkaa käytetään isojen testien ajamiseen
+ *
+ * @author Ulla
+ */
 public class PerformanceTest {
 
-    final int MATRIXSIZE = 3000; //memory loppuu jos laittaa yli 8000
-    final int MAXDISTANCE = 9;
-    final int LOOPUNTIL = 10;
+    //********** Muuttamalla ao. final muuttujia + initialize() metodia, pystyt muuttamaan ajoja 
+    final int MATRIXSIZE = 3000; //matriisin koko MATRIXSIZE*MATRIXSIZE
+    final int MAXDISTANCE = 9; //maksimietäisyys; arpoo etäisyydet
+    final int LOOPUNTIL = 10; //eri algoritmien loop-metodit luuppavat LOOPUNTIL-muuttujan verran
+    final int lahtox = 1; //lähtösolmun x
+    final int lahtoy = 2; //lähtösolmun y
+    final int maalix = 4; //maalisolmun x
+    final int maaliy = 5; //maalisolmun y
+    //******************
+
     static int[][] matrix;
     static Graph graph;
     static boolean[] obstacles;
-    final int lahtox = 1;
-    final int lahtoy = 2;
-    final int maalix = 4;
-    final int maaliy = 5;
     ShortestPath dijkstra;
     ShortestPath astar;
     ShortestPath ida;
     Heap heap;
 
     @Test
-    public void bigMatrixNoObstacles() {
+    public void performanceTest() {
 
-        initialize();
-//        printMatrix();
-//        printObstacles();
+        initialize(); //initialize() metodissa voi vaihtaa keko-toteutusta ja esteitä
+//        printMatrix(); //tulostaa matriisin, jonka etäisyydet arvottu
+//        printObstacles(); //tulostaa esteet
+
+        //************* Valitse ajettavat algoritmit
 //        runDijkstra(graph, obstacles);
 //        runAstar(graph, obstacles);
         runIDAStar(graph, obstacles);
+        //**********************
     }
 
     public void initialize() {
@@ -53,17 +64,16 @@ public class PerformanceTest {
             }
         }
 
+        //************* Valitse keko-ratkaisu vaihtamalla heap muuttujaa
         heap = new TernaryHeap(graph.getNodeAmount() + 1);
 //        Heap heap = new TernaryHeap(graph.getNodeAmount() + 1);
+
         dijkstra = new Dijkstra(heap);
-        //prioriteettijono pitää editoida ohjelmassa
-
         astar = new Astar(heap);
-        //prioriteettijono pitää editoida ohjelmassa
-
         ida = new IDAStar();
 
-        obstacles[graph.getPointId(1, 3)] = true; //IDA ei löydä reittiä esteillä!
+        //**************** Valitse esteet
+        obstacles[graph.getPointId(1, 3)] = true; 
         obstacles[graph.getPointId(2, 2)] = true;
         obstacles[graph.getPointId(3, 4)] = true;
         obstacles[graph.getPointId(2, 3)] = true;
@@ -71,24 +81,26 @@ public class PerformanceTest {
 
     }
 
-    private void runDijkstra(Graph graph, boolean[] obstacles) {
+    //Loppuihin metodeihin ei tarvitse koskea
+    //paitsi jos haluat tulostaa polun, eli ota printPath kutsu pois kommenteista
+    private void runDijkstra(Graph graph, boolean[] obstacles) { 
         Statistic statistic = new Statistic();
         dijkstra.setStatistic(statistic);
         loopDijkstra(statistic, graph, new Manhattan());
         heap.clean();
     }
 
-    public void loopDijkstra(Statistic statistic, Graph graph, Heuristic heuristic) {
+    public void loopDijkstra(Statistic statistic, Graph graph, Heuristic heuristic) { 
         for (int i = 0; i < LOOPUNTIL; i++) {
             statistic.startClock();
             dijkstra.findPath(graph, new Node(lahtox, lahtoy, 0), new Node(maalix, maaliy, 0), heuristic);
             statistic.stopClock();
-            //        dijkstra.printPath(graph, new Node(lahtox, lahtoy, 0), new Node(maalix, maaliy, 0), dijkstra);
+            // dijkstra.printPath(graph, new Node(lahtox, lahtoy, 0), new Node(maalix, maaliy, 0), dijkstra);
             System.out.println("Dijkstra: " + statistic);
         }
     }
 
-    private void runAstar(Graph graph, boolean[] obstacles) {
+    private void runAstar(Graph graph, boolean[] obstacles) { 
         Statistic statistic = new Statistic();
         astar.setStatistic(statistic);
         Heuristic heuristic = new Manhattan();
@@ -101,7 +113,7 @@ public class PerformanceTest {
             statistic.startClock();
             astar.findPath(graph, new Node(lahtox, lahtoy, 0), new Node(maalix, maaliy, 0), heuristic);
             statistic.stopClock();
-            //        astar.printPath(graph, new Node(lahtox, lahtoy, 0), new Node(maalix, maaliy, 0), astar);
+            // astar.printPath(graph, new Node(lahtox, lahtoy, 0), new Node(maalix, maaliy, 0), astar);
             System.out.println("Astar: " + statistic);
         }
     }

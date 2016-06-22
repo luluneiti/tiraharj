@@ -11,6 +11,10 @@ import tiraharj.tools.Heap;
 import tiraharj.tools.StackO;
 import tiraharj.tools.TernaryHeap;
 
+/**
+ *  Tarjoaa palvelun lyhimmän polun etsintään dijkstra-algoritmilla
+ * @author Ulla
+ */
 public class Dijkstra implements ShortestPath {
 
     //private PriorityQueue<Node> prioq;
@@ -26,14 +30,6 @@ public class Dijkstra implements ShortestPath {
         //prioq = new PriorityQueue(); //käytetään vain vertailussa
     }
 
-    /**
-     * Etsii lyhimmän polun verkossa lähtösolmusta maalisolmuun
-     *
-     * @param graph verkko, josta lyhintä polkua etsitään
-     * @param start lähtösolmu, josta etsintä aloitetaan
-     * @param goal maalisolmu, johon etsintä päättyy
-     * @param heuristic
-     */
     @Override
     public void findPath(Graph graph, Node start, Node goal, Heuristic heuristic) {
 
@@ -83,13 +79,6 @@ public class Dijkstra implements ShortestPath {
         emptyRoute = false;
     }
 
-    /**
-     * Tulostaa etsityn lyhimmän polun lähtösolmusta maalisolmuun
-     *
-     * @param graph
-     * @param start lähtösolmu
-     * @param goal maalisolmu
-     */
     public void printPath(Graph graph, Node start, Node goal) {
         throw new UnsupportedOperationException("Use default method in interface class");
     }
@@ -119,5 +108,7 @@ public class Dijkstra implements ShortestPath {
     public void setStatistic(Statistic stat) {
         this.statistic = stat;
     }
+
+   
 
 }

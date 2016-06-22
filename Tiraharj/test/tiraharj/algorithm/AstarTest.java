@@ -104,7 +104,7 @@ public class AstarTest {
         boolean[] obstacles = new boolean[graph.getNodeAmount()];
         graph.setObstacles(obstacles);
         obstacles[graph.getPointId(2, 2)] = true;
-        obstacles[graph.getPointId(4, 4)] = true;
+        obstacles[graph.getPointId(2, 3)] = true;
         obstacles[graph.getPointId(4, 3)] = true;
         obstacles[graph.getPointId(4, 1)] = true;
         Heuristic heuristic = new Manhattan();
@@ -127,7 +127,7 @@ public class AstarTest {
         assertEquals("0,4", graph.getXYByPointId(stack.pop()));
         assertEquals("1,4", graph.getXYByPointId(stack.pop()));
         assertEquals("2,4", graph.getXYByPointId(stack.pop()));
-        assertEquals("2,3", graph.getXYByPointId(stack.pop()));
+        assertEquals("3,4", graph.getXYByPointId(stack.pop()));
 
     }
     
@@ -139,8 +139,8 @@ public class AstarTest {
         boolean[] obstacles = new boolean[graph.getNodeAmount()];
         graph.setObstacles(obstacles);
         obstacles[graph.getPointId(2, 2)] = true;
-        obstacles[graph.getPointId(4, 4)] = true;
-        obstacles[graph.getPointId(4, 3)] = true;
+        obstacles[graph.getPointId(2, 3)] = true;
+        obstacles[graph.getPointId(3, 4)] = true;
         obstacles[graph.getPointId(4, 1)] = true;
         Heuristic heuristic = new Manhattan();
         /**
@@ -157,12 +157,10 @@ public class AstarTest {
         astar.printPath(graph, new Node(1, 2, 0), new Node(3, 3, 0), astar);
         StackO stack = astar.getPathInStack(graph, new Node(1, 2, 0), new Node(3, 3, 0));
 
-        assertEquals("0,2", graph.getXYByPointId(stack.pop()));
-        assertEquals("0,3", graph.getXYByPointId(stack.pop()));
-        assertEquals("0,4", graph.getXYByPointId(stack.pop()));
-        assertEquals("1,4", graph.getXYByPointId(stack.pop()));
-        assertEquals("2,4", graph.getXYByPointId(stack.pop()));
-        assertEquals("2,3", graph.getXYByPointId(stack.pop()));
+        assertEquals("1,1", graph.getXYByPointId(stack.pop()));
+        assertEquals("2,1", graph.getXYByPointId(stack.pop()));
+        assertEquals("3,1", graph.getXYByPointId(stack.pop()));
+        assertEquals("3,2", graph.getXYByPointId(stack.pop()));
 
     }
 

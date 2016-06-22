@@ -1,29 +1,45 @@
 package tiraharj.tools;
 
+/**
+ * Tarjoaa laskurin ja ajanotto palvelun
+ *
+ * @author Ulla
+ */
 public class Statistic {
 
-    private long operCounter;
+    private long counter;
     private long timeInBegin;
     private long timeInEnd;
 
     public Statistic() {
-        this.operCounter = 0;
+        this.counter = 0;
         this.timeInBegin = 0;
         this.timeInEnd = 0;
     }
 
     /**
-     * Getterit testiä varten
-     * @return palautta laskurin arvon
+     * Palauttaa laskurin arvon. Testiä varten.
+     *
+     * @return laskurin arvo
      */
-    public long getOperCounter() {
-        return operCounter;
+    public long getCounter() {
+        return counter;
     }
 
+    /**
+     * Palauttaa aloitusajankohdan. Testiä varten.
+     *
+     * @return aloitusajankohta
+     */
     public long getTimeInBegin() {
         return timeInBegin;
     }
 
+    /**
+     * Palauttaa lopetusajankohdan. Testiä varten.
+     *
+     * @return lopetusajankohta
+     */
     public long getTimeInEnd() {
         return timeInEnd;
     }
@@ -32,18 +48,18 @@ public class Statistic {
      * Lisää laskuria
      */
     public void addCounter() {
-        this.operCounter++;
+        this.counter++;
     }
 
     /**
-     * Asettaa aloitusajan
+     * Asettaa aloitusajankohdan
      */
     public void startClock() {
         this.timeInBegin = System.currentTimeMillis();
     }
 
     /**
-     * Asettaa loppuajan
+     * Asettaa lopetusajankohdan
      */
     public void stopClock() {
         this.timeInEnd = System.currentTimeMillis();
@@ -51,7 +67,7 @@ public class Statistic {
 
     @Override
     public String toString() {
-        return "Operaatioon kului aikaa: " + (this.timeInEnd - this.timeInBegin) + " ms ja käsiteltyjen solmujen lkm: " + this.operCounter;
+        return "Operaatioon kului aikaa: " + (this.timeInEnd - this.timeInBegin) + " ms ja käsiteltyjen solmujen lkm: " + this.counter;
     }
 
 }

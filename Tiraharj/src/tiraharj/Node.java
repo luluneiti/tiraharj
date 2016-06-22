@@ -1,5 +1,9 @@
 package tiraharj;
 
+/**
+ * Verkon solmu, joka tuntee sijaintinsa ja etäisyyden
+ * @author Ulla
+ */
 public class Node implements Comparable<Node> {
 
     private int x;
