@@ -58,9 +58,10 @@ public class PerformanceTest {
         graph = new Graph(matrix);
         obstacles = new boolean[graph.getNodeAmount() + 1];
         graph.setObstacles(obstacles);
+        RandomNumber random = new RandomNumber(MAXDISTANCE);
         for (int i = 0; i < MATRIXSIZE; i++) {
             for (int j = 0; j < MATRIXSIZE; j++) {
-                matrix[i][j] = RandomNumber.getNumber(MAXDISTANCE);
+                matrix[i][j] = random.nextInt();
             }
         }
 
@@ -73,7 +74,7 @@ public class PerformanceTest {
         ida = new IDAStar();
 
         //**************** Valitse esteet
-        obstacles[graph.getPointId(1, 3)] = true; 
+        obstacles[graph.getPointId(1, 3)] = true;
         obstacles[graph.getPointId(2, 2)] = true;
         obstacles[graph.getPointId(3, 4)] = true;
         obstacles[graph.getPointId(2, 3)] = true;
@@ -83,14 +84,14 @@ public class PerformanceTest {
 
     //Loppuihin metodeihin ei tarvitse koskea
     //paitsi jos haluat tulostaa polun, eli ota printPath kutsu pois kommenteista
-    private void runDijkstra(Graph graph, boolean[] obstacles) { 
+    private void runDijkstra(Graph graph, boolean[] obstacles) {
         Statistic statistic = new Statistic();
         dijkstra.setStatistic(statistic);
         loopDijkstra(statistic, graph, new Manhattan());
         heap.clean();
     }
 
-    public void loopDijkstra(Statistic statistic, Graph graph, Heuristic heuristic) { 
+    public void loopDijkstra(Statistic statistic, Graph graph, Heuristic heuristic) {
         for (int i = 0; i < LOOPUNTIL; i++) {
             statistic.startClock();
             dijkstra.findPath(graph, new Node(lahtox, lahtoy, 0), new Node(maalix, maaliy, 0), heuristic);
@@ -100,7 +101,7 @@ public class PerformanceTest {
         }
     }
 
-    private void runAstar(Graph graph, boolean[] obstacles) { 
+    private void runAstar(Graph graph, boolean[] obstacles) {
         Statistic statistic = new Statistic();
         astar.setStatistic(statistic);
         Heuristic heuristic = new Manhattan();

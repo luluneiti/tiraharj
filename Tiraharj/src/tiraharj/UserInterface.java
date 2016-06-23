@@ -10,7 +10,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 /**
- * Graafinen käyttöliittymä, jonka kautta voi ajaa eri algoritmeja
+ * Graafinen käyttöliittymä, jonka kautta voi ajaa eri algoritmeja.
+ * Matriisin koko, esteiden määrä rajoitettu.
  *
  * @author Ulla
  */
@@ -176,9 +177,11 @@ public class UserInterface extends JFrame implements ActionListener {
      */
     private void setDistances() {
         int nRow = def.getRowCount(), nCol = def.getColumnCount();
+        RandomNumber random=new RandomNumber(9);
         for (int i = 0; i < nRow; i++) {
             for (int j = 0; j < nCol; j++) {
-                int k = RandomNumber.getNumber(9);
+                //int k = RandomNumber.getNumber(9);
+                int k=random.nextInt();
                 table.setValueAt(k, i, j);
             }
         }

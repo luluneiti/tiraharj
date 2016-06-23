@@ -19,8 +19,8 @@ import tiraharj.tools.Statistic;
 import tiraharj.tools.TernaryHeap;
 
 /**
- * Käyttöliittymän/pääohjelman pyynnöstä luo tarvittavat oliot ja käynnistää pyydetyn
- * algoritmin sekä näyttää lyhimmän polun
+ * Käyttöliittymän/pääohjelman pyynnöstä luo tarvittavat oliot ja käynnistää
+ * pyydetyn algoritmin sekä näyttää lyhimmän polun
  *
  * @author Ulla
  */
@@ -62,6 +62,7 @@ public class ApplicationLogic {
             if (obstacles.length > 0) {
                 for (Location loc : obstacles) {
                     if (loc != null) {
+//                        System.out.println(loc.getX()+" "+loc.getY());
                         if (graph.isReachable(loc.getX(), loc.getY())) {
                             obst[graph.getPointId(loc.getX(), loc.getY())] = true;
                         }
@@ -103,7 +104,6 @@ public class ApplicationLogic {
     }
 
     private Heap createHeap(String heapName, Graph graph) {
-        
         Heap heap;
         if (heapName.equals("bheap")) {
             heap = new BinaryHeap(graph.getNodeAmount() + 1);
@@ -159,5 +159,5 @@ public class ApplicationLogic {
     public boolean distanceOk(int distance) {
         return distance >= 0;
     }
-
+    
 }

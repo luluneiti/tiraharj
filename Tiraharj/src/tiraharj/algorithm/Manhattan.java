@@ -5,15 +5,19 @@ import tiraharj.Node;
 
 /**
  * Tarjoaa etäisyyden ja naapureiden päättelyn manhattan periaatteella
+ *
  * @author Ulla
  */
 public class Manhattan implements Heuristic {
 
     @Override
     public int getToEnd(Node a, Node b) {
+        return abs(a.getX() - b.getX()) + abs(a.getY() - b.getY());
+//        return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY());
+    }
 
-        return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY());
-
+    private int abs(int a) {
+        return (a < 0) ? -a : a;
     }
 
     @Override

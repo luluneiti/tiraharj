@@ -9,7 +9,8 @@ import tiraharj.tools.StackO;
 import tiraharj.tools.Statistic;
 
 /**
- *  Tarjoaa palvelun lyhimmän polun etsintään IDAStar-algoritmilla
+ * Tarjoaa palvelun lyhimmän polun etsintään IDAStar-algoritmilla
+ *
  * @author Ulla
  */
 public class IDAStar implements ShortestPath {
@@ -65,9 +66,9 @@ public class IDAStar implements ShortestPath {
         }
 
         Integer min = Integer.MAX_VALUE;
-        Node[] nexts = graph.getNeighbors(graph, current, heuristic);
-        //Arrays.sort(nexts); 
-//        Node[] nexts = NodeSort.sort(nextsorg); //nopeuttaa algoritmia, mutta otettu pois käytöstä
+        Node[] nextsorg = graph.getNeighbors(graph, current, heuristic);
+//        Arrays.sort(nexts); 
+        Node[] nexts = NodeSort.sort(nextsorg); //nopeuttaa algoritmia
 
         for (Node next : nexts) {
             if (next != null) { ///jos esteitä solmun ympärillä, ei naapureita
