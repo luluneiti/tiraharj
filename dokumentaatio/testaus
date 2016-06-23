@@ -10,12 +10,12 @@
   - Eri pituiset polut 4-95 (linnuntietä)
   - Esteiden määrä vaihteli (2-10)
   - Algoritmeja testattu sekä 2- että 3-keolla
-  - Huom: IDA* algoritmi toimii vain pienillä matriiseilla. Katso toteutus dokumentti.
+  - IDA* algoritmilla ongelmia välillä esteiden kanssa. Katso toteutus dokumentti.
   
 # Miten testit voidaan toistaa
   - JUnit testit voidaan ajaa uudelleen. Dijkstran ja Astarin testiluokissa on omat metodit 2- ja 3-keolle, jotta mahdolliset erot 
   kekojen välilä eivät haittaa testien ajamista.
-  - Käyttöliittymää tullaan testaamaan käsin eri testitapauksilla. 
+  - Käyttöliittymä/pääohjelma testattu käsin eri testitapauksilla. 
     - Testitapaukset: 
       - eri algoritmien ajaminen eri keko-toteutuksilla
       - tilastojen näyttäminen
@@ -23,9 +23,11 @@
       - etäisyyksien arpominen
       - validi lähtösolmu (ei tyhjä tai ulkona koordinaatistosta)
       - validi maalisolmu (ei tyhjä tai ulkona koordinaatistosta)
-      - lähtä- ja/tai maalisolmu sama kuin este (max- 3 estettä)
-  - Pääohjelma käyttää samaan sovelluslogiikka oliota, eli voi kokeilla ajaa myös sen kautta isommilla matriiseilla ja suuremmilla
-  esteiden määrillä.
+      - ettei lähtä- ja/tai maalisolmu sama kuin este (max- 3 estettä)
 # Ohjelman toiminnan empiirisen testauksen tulosten esittäminen graafisessa muodossa.
+  - https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/Testaustilasto-Astar.png
+  - https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/Testaustilasto-Dijkstra.png
+  - https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/Testaustilasto-Kaikki.png
+  - Lisätietoa: https://github.com/luluneiti/tiraharj/blob/master/dokumentaatio/Testaustilasto.pdf
 
 
