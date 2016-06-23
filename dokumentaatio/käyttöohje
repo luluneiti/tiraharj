@@ -9,22 +9,15 @@
             - Käynnistä algoritmi klikkaamalla "Etsi lyhin polku" painiketta.
             --> Ohjelma palauttaa ajoon kuluneen ajan ja käsiteltyjen solmujen määrän". Kuittaa viesti.
             --> Ohjelma palauttaa polun. Kuittaa viesti.
-        - Pääohjelma (matriisin koko ja esteiden määrä ei ole rajattu)
-            - Syötä lähtö- ja maalisolmun koordinaatit niille varattuihin muuttujiin
-            - Muuta matrix-matriisin sisältö (etäisyydet)
-            - Anna halutessasi esteet
-            - Ota kommenteista pois haluamasi yhdistelmä: algoritmi, kekoratkaisu (Huom: IDAStar ei käytä kekoa, mutta kekoratkaisu on valittava)
-            - Käynnistä pääohjelma
-        - Lisäksi PerformanceTest-luokan kautta voi tehdä isoja matriiseja ja arpoa etäisyydet siihen.
+        - Pääohjelma (matriisin koko ja esteiden määrää ei ole rajoitettu, mutta tulostuksessa todella isot saattavat aiheuttaa ongelmia)
+             - Käynnistä pääohjelma
+             - Vastaa esitettyihin kysymyksiin
+             --> Ohjelma palauttaa ajoon kuluneen ajan ja käsiteltyjen solmujen määrän". 
+             --> Ohjelma palauttaa polun. 
 # Minkä muotoisia syötteitä ohjelma hyväksyy
-    - Käyttöliittymä 
+    - Käyttöliittymä / Pääohjelma
             - Käyttöliittymällä syötetään koordinaatit, joiden pitää olla lukuja. 
             - Ohjelman tarkistaa, etteivät lähtö- ja maalikoordinaatit ole tyhjät ja ettei este ole sama kuin lähtö- tai maalikoordinaatti.
             - Ohjelma tarkistaa, että koordinaatit saavutettavissa.
-            - Ohjelma tarkistaa, ettei etäisyydet ole negatiivisia.
-    - Pääohjelma
-            - Ohjelmalle annetaan int[][] matriisi, jossa on etäisyydet ja Location[] taulukko, jossa on esteet.
-            - Ohjelma tarkistaa, että koordinaatit saavutettavissa.
-            - Ohjelma tarkistaa, ettei etäisyydet ole negatiivisia.
 # Missä hakemistossa on jar ja ajamiseen tarvittavat testitiedostot.
-    - 
+    - Tiraharj-kansion juuressa ja Git:n release-kohdassa
