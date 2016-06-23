@@ -23,4 +23,5 @@ Tunnit:
 * 20.6.2016, 2 h: Dokumentointi
 * 21.6.2016, 7 h: Käyttöliittymä, javadoc kommenttien hiominen, pääohjelman muuttaminen, IDA*, kekoratkaisu
 * 22.6.2016, 7 h: Suorituskykytestitulosten saaminen kaavioiksi, käyttöohje, käyttöliittymä, javadoc kommenttien hiominen, IDA*
-* 23.6.2016, x h: Dokujen tsekkaus, release, ..
+* 23.6.2016, 6 h: Dokujen tsekkaus; release Git:iin; pääohjelman muuttaminen, jotta sen kautta voi ajaa isoja matriiseja ja 
+            useilla esteillä; unohtuneiden java-työkalujen korvaus omilla
