@@ -1,5 +1,5 @@
 # Miten ohjelma suoritetaan, miten eri toiminnallisuuksia käytetään
-    Ohjelman voi suorittaa käyttölittymän ja pääohjelman kautta
+    Ohjelman voi suorittaa käyttölittymän ja pääohjelman kautta.
         - Käyttöliittymä (matriisin koko ja esteiden määrä rajattu)
             - Syötä lähtö- ja maalisolmun koordinaatit niille varattuihin tekstikenttiin.
             - Valitse algoritmi: Dijkstra, Astar, IDAStar
@@ -20,4 +20,4 @@
             - Ohjelman tarkistaa, etteivät lähtö- ja maalikoordinaatit ole tyhjät ja ettei este ole sama kuin lähtö- tai maalikoordinaatti.
             - Ohjelma tarkistaa, että koordinaatit saavutettavissa.
 # Missä hakemistossa on jar ja ajamiseen tarvittavat testitiedostot.
-    - Tiraharj-kansion juuressa ja Git:n release-kohdassa
+    - Tiraharj-kansion juuressa ja Git:n release-kohdassa. Jar. tiedosto käynnistää graafisen käyttöliitymän.
